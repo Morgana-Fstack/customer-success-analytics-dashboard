@@ -1,6 +1,15 @@
 import pandas as pd
 
-from src.metrics import add_health_fields, calculate_health_score, filter_customers, portfolio_kpis
+from src.metrics import (
+    add_health_fields,
+    calculate_health_score,
+    churn_breakdown,
+    churn_by_cohort,
+    cs_operations_kpis,
+    filter_customers,
+    has_cs_operations_data,
+    portfolio_kpis,
+)
 
 
 def sample_customers() -> pd.DataFrame:
@@ -49,3 +58,38 @@ def test_filters_can_be_combined() -> None:
     result = filter_customers(sample_customers(), segments=["SMB"], csms=["Ana"])
     assert len(result) == 2
     assert set(result["segment"]) == {"SMB"}
+
+
+def operational_customers() -> pd.DataFrame:
+    data = sample_customers()
+    data["entry_date"] = pd.to_datetime(["2026-01-10", "2026-01-20", "2026-02-05"])
+    data["customer_type"] = ["Individual", "Agency", "Individual"]
+    data["accounts"] = [1, 2, 1]
+    data["onboarding_completed"] = ["Yes", "No", "No"]
+    return data
+
+
+def test_cs_operations_kpis_reconcile_portfolio() -> None:
+    customers = operational_customers()
+    assert has_cs_operations_data(customers)
+    kpis = cs_operations_kpis(customers)
+    assert kpis["total_customers"] == 3
+    assert kpis["active_customers"] == 2
+    assert kpis["churned_customers"] == 1
+    assert kpis["total_accounts"] == 4
+    assert kpis["onboarding_rate"] == 1 / 3
+
+
+def test_churn_breakdown_keeps_all_onboarding_groups() -> None:
+    breakdown = churn_breakdown(operational_customers(), "onboarding_completed")
+    assert breakdown["total"].sum() == 3
+    no_onboarding = breakdown.loc[breakdown["onboarding_completed"] == "No"].iloc[0]
+    assert no_onboarding["churn_rate"] == 0.5
+
+
+def test_churn_by_cohort_excludes_missing_entry_dates() -> None:
+    customers = operational_customers()
+    customers.loc[2, "entry_date"] = pd.NaT
+    cohort = churn_by_cohort(customers)
+    assert cohort["total"].sum() == 2
+    assert cohort.iloc[0]["cohort"] == "2026-01"

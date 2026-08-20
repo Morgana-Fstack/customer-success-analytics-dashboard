@@ -22,6 +22,15 @@ REQUIRED_CUSTOMER_COLUMNS = [
     "renewal_days",
 ]
 
+OPTIONAL_CS_COLUMNS = [
+    "entry_date",
+    "cancellation_date",
+    "customer_type",
+    "accounts",
+    "onboarding_completed",
+    "onboarding_date",
+]
+
 NUMERIC_CUSTOMER_COLUMNS = [
     "starting_mrr",
     "mrr",
@@ -41,6 +50,27 @@ STATUS_ALIASES = {
     "ativo": "Active",
     "churned": "Churned",
     "cancelado": "Churned",
+}
+
+ONBOARDING_ALIASES = {
+    "yes": "Yes",
+    "sim": "Yes",
+    "true": "Yes",
+    "1": "Yes",
+    "completed": "Yes",
+    "concluido": "Yes",
+    "concluído": "Yes",
+    "no": "No",
+    "nao": "No",
+    "não": "No",
+    "false": "No",
+    "0": "No",
+    "pending": "No",
+    "pendente": "No",
+    "unknown": "Unknown",
+    "not informed": "Unknown",
+    "nao informado": "Unknown",
+    "não informado": "Unknown",
 }
 
 
@@ -72,9 +102,15 @@ def customer_template() -> pd.DataFrame:
                 "open_tickets": 1,
                 "csat_score": 4.5,
                 "renewal_days": 90,
+                "entry_date": "2026-01-15",
+                "cancellation_date": "",
+                "customer_type": "Individual",
+                "accounts": 1,
+                "onboarding_completed": "Yes",
+                "onboarding_date": "2026-01-27",
             }
         ],
-        columns=REQUIRED_CUSTOMER_COLUMNS,
+        columns=REQUIRED_CUSTOMER_COLUMNS + OPTIONAL_CS_COLUMNS,
     )
 
 
@@ -88,7 +124,8 @@ def prepare_uploaded_customers(data: pd.DataFrame) -> pd.DataFrame:
     if missing:
         raise CustomerDataError("missing_columns", ", ".join(missing))
 
-    result = result[REQUIRED_CUSTOMER_COLUMNS].copy()
+    optional_columns = [column for column in OPTIONAL_CS_COLUMNS if column in result.columns]
+    result = result[REQUIRED_CUSTOMER_COLUMNS + optional_columns].copy()
     text_columns = ["customer_id", "customer_name", "segment", "plan", "csm", "status"]
     for column in text_columns:
         result[column] = result[column].astype(str).str.strip()
@@ -118,5 +155,33 @@ def prepare_uploaded_customers(data: pd.DataFrame) -> pd.DataFrame:
         raise CustomerDataError("invalid_csat")
     if (result["contracted_seats"] < 1).any():
         raise CustomerDataError("invalid_seats")
+
+    if "accounts" in result.columns:
+        accounts = pd.to_numeric(result["accounts"], errors="coerce")
+        if accounts.isna().any() or (accounts < 1).any():
+            raise CustomerDataError("invalid_accounts")
+        result["accounts"] = accounts.astype(int)
+
+    if "customer_type" in result.columns:
+        result["customer_type"] = result["customer_type"].fillna("").astype(str).str.strip()
+        result["customer_type"] = result["customer_type"].replace("", "Not informed")
+
+    if "onboarding_completed" in result.columns:
+        raw_onboarding = result["onboarding_completed"].fillna("Unknown").astype(str).str.strip()
+        normalized_onboarding = raw_onboarding.str.casefold().map(ONBOARDING_ALIASES)
+        if normalized_onboarding.isna().any():
+            invalid = sorted(raw_onboarding[normalized_onboarding.isna()].unique())
+            raise CustomerDataError("invalid_onboarding", ", ".join(invalid))
+        result["onboarding_completed"] = normalized_onboarding
+
+    for column in ["entry_date", "cancellation_date", "onboarding_date"]:
+        if column not in result.columns:
+            continue
+        raw_dates = result[column].replace("", pd.NA)
+        parsed_dates = pd.to_datetime(raw_dates, errors="coerce")
+        invalid_dates = raw_dates.notna() & parsed_dates.isna()
+        if invalid_dates.any():
+            raise CustomerDataError("invalid_date", column)
+        result[column] = parsed_dates
 
     return result

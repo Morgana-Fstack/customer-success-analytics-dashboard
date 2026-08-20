@@ -9,7 +9,15 @@ import plotly.graph_objects as go
 import streamlit as st
 
 from src.data_loader import CustomerDataError, customer_template, prepare_uploaded_customers
-from src.metrics import add_health_fields, filter_customers, portfolio_kpis
+from src.metrics import (
+    add_health_fields,
+    churn_breakdown,
+    churn_by_cohort,
+    cs_operations_kpis,
+    filter_customers,
+    has_cs_operations_data,
+    portfolio_kpis,
+)
 
 ROOT = Path(__file__).parent
 HEALTH_ORDER = ["Healthy", "At risk", "Critical"]
@@ -24,7 +32,14 @@ TRANSLATIONS = {
         "demo": "Carteira demonstrativa · Dados sintéticos",
         "title": "Análise de Customer Success",
         "subtitle": "Visão executiva da carteira para retenção, receita e ações proativas com clientes",
-        "tabs": ["Visão executiva", "Risco e retenção", "Receita", "Carteira de clientes", "Metodologia"],
+        "tabs": [
+            "Visão executiva",
+            "Operação de CS",
+            "Risco e retenção",
+            "Receita",
+            "Carteira de clientes",
+            "Metodologia",
+        ],
         "mrr": "Receita recorrente mensal",
         "arr": "Receita recorrente anual",
         "nrr": "Retenção líquida de receita",
@@ -84,6 +99,41 @@ TRANSLATIONS = {
             "para gerar este gráfico sem misturar dados demonstrativos."
         ),
         "active_customers": "Clientes ativos",
+        "churned_customers": "Clientes cancelados",
+        "total_accounts": "Total de contas",
+        "onboarding_rate": "Conclusão do onboarding",
+        "churn_target": "Meta máxima de churn",
+        "target_met": "Dentro da meta",
+        "target_missed": "Acima da meta",
+        "operations_title": "Indicadores de onboarding e churn",
+        "operations_subtitle": (
+            "Entenda como a conclusão do onboarding se relaciona com retenção e cancelamento da carteira."
+        ),
+        "operations_unavailable": (
+            "Esta carteira usa o modelo antigo. Baixe o novo modelo de CSV e preencha os campos operacionais "
+            "para ativar esta visão."
+        ),
+        "onboarding_impact": "Impacto do onboarding no churn",
+        "onboarding_status": "Status do onboarding",
+        "completed": "Concluído",
+        "not_completed": "Não concluído",
+        "not_informed": "Não informado",
+        "churn_rate": "Taxa de churn",
+        "analysis_dimension": "Analisar churn por",
+        "customer_type": "Tipo de cliente",
+        "churn_breakdown": "Churn por dimensão",
+        "cohort_churn": "Churn por safra de entrada",
+        "entry_cohort": "Safra de entrada",
+        "total_customers": "Total de clientes",
+        "operational_insight": (
+            "Clientes sem onboarding apresentam churn de {without_rate:.1%}, contra {with_rate:.1%} entre "
+            "clientes com onboarding concluído."
+        ),
+        "operational_insight_missing": "Ainda não há grupos suficientes para comparar o impacto do onboarding.",
+        "attention_list": "Clientes sem onboarding ou cancelados",
+        "entry_date": "Data de entrada",
+        "cancellation_date": "Data de cancelamento",
+        "accounts": "Contas",
         "upload_error_empty": "O arquivo está vazio.",
         "upload_error_missing_columns": "Colunas obrigatórias ausentes",
         "upload_error_empty_values": "Há valores vazios na coluna",
@@ -94,6 +144,9 @@ TRANSLATIONS = {
         "upload_error_invalid_feature_adoption": "A adoção de funcionalidades deve estar entre 0 e 100.",
         "upload_error_invalid_csat": "O CSAT deve estar entre 0 e 5.",
         "upload_error_invalid_seats": "Licenças contratadas deve ser igual ou maior que 1.",
+        "upload_error_invalid_accounts": "A quantidade de contas deve ser igual ou maior que 1.",
+        "upload_error_invalid_onboarding": "Status de onboarding inválido. Use Sim/Não ou Yes/No",
+        "upload_error_invalid_date": "Há uma data inválida na coluna",
         "upload_error_read": "Não foi possível ler o CSV. Verifique o formato e a codificação do arquivo.",
         "score_explainer_title": "Entenda o cálculo do health score",
         "methodology_title": "Como o health score funciona",
@@ -136,7 +189,14 @@ Essa troca é apenas uma convenção de apresentação da demonstração, sem co
         "demo": "Demo portfolio · Synthetic data",
         "title": "Customer Success Analytics",
         "subtitle": "Executive portfolio visibility for retention, revenue and proactive customer action",
-        "tabs": ["Executive overview", "Risk & retention", "Revenue", "Customer portfolio", "Methodology"],
+        "tabs": [
+            "Executive overview",
+            "CS operations",
+            "Risk & retention",
+            "Revenue",
+            "Customer portfolio",
+            "Methodology",
+        ],
         "mrr": "Monthly recurring revenue",
         "arr": "Annual recurring revenue",
         "nrr": "Net revenue retention",
@@ -196,6 +256,41 @@ Essa troca é apenas uma convenção de apresentação da demonstração, sem co
             "this chart without mixing in demo data."
         ),
         "active_customers": "Active customers",
+        "churned_customers": "Churned customers",
+        "total_accounts": "Total accounts",
+        "onboarding_rate": "Onboarding completion",
+        "churn_target": "Maximum churn target",
+        "target_met": "Within target",
+        "target_missed": "Above target",
+        "operations_title": "Onboarding and churn indicators",
+        "operations_subtitle": (
+            "Understand how onboarding completion relates to portfolio retention and cancellation."
+        ),
+        "operations_unavailable": (
+            "This portfolio uses the previous template. Download the new CSV template and complete the "
+            "operational fields to enable this view."
+        ),
+        "onboarding_impact": "Onboarding impact on churn",
+        "onboarding_status": "Onboarding status",
+        "completed": "Completed",
+        "not_completed": "Not completed",
+        "not_informed": "Not informed",
+        "churn_rate": "Churn rate",
+        "analysis_dimension": "Analyze churn by",
+        "customer_type": "Customer type",
+        "churn_breakdown": "Churn by dimension",
+        "cohort_churn": "Churn by entry cohort",
+        "entry_cohort": "Entry cohort",
+        "total_customers": "Total customers",
+        "operational_insight": (
+            "Customers without onboarding have {without_rate:.1%} churn, compared with {with_rate:.1%} among "
+            "customers who completed onboarding."
+        ),
+        "operational_insight_missing": "There are not enough groups yet to compare onboarding impact.",
+        "attention_list": "Customers without onboarding or already churned",
+        "entry_date": "Entry date",
+        "cancellation_date": "Cancellation date",
+        "accounts": "Accounts",
         "upload_error_empty": "The file is empty.",
         "upload_error_missing_columns": "Required columns are missing",
         "upload_error_empty_values": "There are empty values in column",
@@ -206,6 +301,9 @@ Essa troca é apenas uma convenção de apresentação da demonstração, sem co
         "upload_error_invalid_feature_adoption": "Feature adoption must be between 0 and 100.",
         "upload_error_invalid_csat": "CSAT must be between 0 and 5.",
         "upload_error_invalid_seats": "Contracted seats must be at least 1.",
+        "upload_error_invalid_accounts": "Accounts must be at least 1.",
+        "upload_error_invalid_onboarding": "Invalid onboarding status. Use Yes/No or Sim/Não",
+        "upload_error_invalid_date": "An invalid date was found in column",
         "upload_error_read": "The CSV could not be read. Check its format and encoding.",
         "score_explainer_title": "Understand the health score calculation",
         "methodology_title": "How the health score works",
@@ -277,7 +375,7 @@ st.markdown(
 def load_data() -> tuple[pd.DataFrame, pd.DataFrame]:
     customers = pd.read_csv(ROOT / "data" / "customers.csv")
     history = pd.read_csv(ROOT / "data" / "monthly_history.csv", parse_dates=["month"])
-    return add_health_fields(customers), history
+    return add_health_fields(prepare_uploaded_customers(customers)), history
 
 
 def money(value: float, language: str) -> str:
@@ -405,6 +503,140 @@ with tabs[0]:
     )
 
 with tabs[1]:
+    st.subheader(text["operations_title"])
+    st.caption(text["operations_subtitle"])
+
+    if not has_cs_operations_data(filtered):
+        st.info(text["operations_unavailable"])
+    else:
+        operations = cs_operations_kpis(filtered)
+        churn_target_pct = st.slider(text["churn_target"], min_value=5, max_value=50, value=15, step=1)
+        churn_target = churn_target_pct / 100
+        target_status = text["target_met"] if operations["churn_rate"] <= churn_target else text["target_missed"]
+
+        operation_cols = st.columns(6)
+        operation_cols[0].metric(text["active_customers"], f"{operations['active_customers']:.0f}")
+        operation_cols[1].metric(text["churned_customers"], f"{operations['churned_customers']:.0f}")
+        operation_cols[2].metric(text["total_accounts"], f"{operations['total_accounts']:.0f}")
+        operation_cols[3].metric(text["logo_churn"], f"{operations['churn_rate']:.1%}")
+        operation_cols[4].metric(text["onboarding_rate"], f"{operations['onboarding_rate']:.1%}")
+        operation_cols[5].metric(text["churn_target"], f"{churn_target:.0%}", target_status)
+
+        onboarding_labels = {
+            "Yes": text["completed"],
+            "No": text["not_completed"],
+            "Unknown": text["not_informed"],
+            "Not informed": text["not_informed"],
+        }
+        onboarding = churn_breakdown(filtered, "onboarding_completed")
+        onboarding["onboarding_display"] = onboarding["onboarding_completed"].map(onboarding_labels).fillna(
+            onboarding["onboarding_completed"]
+        )
+
+        left, right = st.columns(2)
+        with left:
+            fig = px.bar(
+                onboarding,
+                x="onboarding_display",
+                y="churn_rate",
+                color="onboarding_display",
+                text_auto=".1%",
+                title=text["onboarding_impact"],
+                labels={"onboarding_display": text["onboarding_status"], "churn_rate": text["churn_rate"]},
+                color_discrete_sequence=["#6d5bd0", "#ef4444", "#94a3b8"],
+            )
+            fig.add_hline(y=churn_target, line_dash="dash", line_color="#f59e0b")
+            fig.update_layout(showlegend=False, yaxis_tickformat=".0%")
+            st.plotly_chart(fig, use_container_width=True)
+
+        with right:
+            dimension_options = {
+                text["customer_type"]: "customer_type",
+                text["segment"]: "segment",
+                text["plan"]: "plan",
+                text["csm"]: "csm",
+            }
+            selected_dimension_label = st.selectbox(text["analysis_dimension"], list(dimension_options))
+            selected_dimension = dimension_options[selected_dimension_label]
+            dimension_data = churn_breakdown(filtered, selected_dimension)
+            fig = px.bar(
+                dimension_data,
+                x=selected_dimension,
+                y="churn_rate",
+                color="churn_rate",
+                text_auto=".1%",
+                title=text["churn_breakdown"],
+                labels={selected_dimension: selected_dimension_label, "churn_rate": text["churn_rate"]},
+                color_continuous_scale=["#c7d2fe", "#6d5bd0", "#ef4444"],
+                hover_data={"total": True, "active": True, "churned": True},
+            )
+            fig.add_hline(y=churn_target, line_dash="dash", line_color="#f59e0b")
+            fig.update_layout(coloraxis_showscale=False, yaxis_tickformat=".0%")
+            st.plotly_chart(fig, use_container_width=True)
+
+        with_onboarding = onboarding.loc[onboarding["onboarding_completed"] == "Yes", "churn_rate"]
+        without_onboarding = onboarding.loc[onboarding["onboarding_completed"] == "No", "churn_rate"]
+        if not with_onboarding.empty and not without_onboarding.empty:
+            insight = text["operational_insight"].format(
+                with_rate=with_onboarding.iloc[0],
+                without_rate=without_onboarding.iloc[0],
+            )
+        else:
+            insight = text["operational_insight_missing"]
+        st.markdown(f'<div class="insight"><b>{insight}</b></div>', unsafe_allow_html=True)
+
+        cohort = churn_by_cohort(filtered)
+        if not cohort.empty:
+            fig = px.line(
+                cohort,
+                x="cohort",
+                y="churn_rate",
+                markers=True,
+                title=text["cohort_churn"],
+                labels={"cohort": text["entry_cohort"], "churn_rate": text["churn_rate"]},
+                hover_data={"total": True, "active": True, "churned": True},
+            )
+            fig.add_hline(y=churn_target, line_dash="dash", line_color="#f59e0b")
+            fig.update_traces(line_color="#6d5bd0")
+            fig.update_layout(yaxis_tickformat=".0%")
+            st.plotly_chart(fig, use_container_width=True)
+
+        st.subheader(text["attention_list"])
+        attention = filtered[
+            filtered["onboarding_completed"].ne("Yes") | filtered["status"].eq("Churned")
+        ].copy()
+        attention["status"] = attention["status"].map({"Active": text["active"], "Churned": text["churned"]})
+        attention["onboarding_completed"] = attention["onboarding_completed"].map(onboarding_labels).fillna(
+            attention["onboarding_completed"]
+        )
+        attention_columns = [
+            "customer_name",
+            "customer_type",
+            "csm",
+            "status",
+            "onboarding_completed",
+            "entry_date",
+            "cancellation_date",
+            "accounts",
+        ]
+        attention_columns = [column for column in attention_columns if column in attention.columns]
+        st.dataframe(
+            attention[attention_columns].sort_values(["status", "customer_name"]),
+            use_container_width=True,
+            hide_index=True,
+            column_config={
+                "customer_name": text["customer_name"],
+                "customer_type": text["customer_type"],
+                "csm": text["csm"],
+                "status": text["status"],
+                "onboarding_completed": text["onboarding_status"],
+                "entry_date": st.column_config.DateColumn(text["entry_date"], format="DD/MM/YYYY"),
+                "cancellation_date": st.column_config.DateColumn(text["cancellation_date"], format="DD/MM/YYYY"),
+                "accounts": text["accounts"],
+            },
+        )
+
+with tabs[2]:
     left, right = st.columns(2)
     with left:
         fig = px.scatter(
@@ -481,7 +713,7 @@ with tabs[1]:
         },
     )
 
-with tabs[2]:
+with tabs[3]:
     cols = st.columns(4)
     cols[0].metric(text["current_mrr"], money(kpis["mrr"], language))
     cols[1].metric(text["risk_mrr"], money(kpis["at_risk_mrr"], language))
@@ -519,7 +751,7 @@ with tabs[2]:
         waterfall.update_layout(title=text["mrr_movement"], yaxis_tickprefix=currency_prefix, showlegend=False)
         st.plotly_chart(waterfall, use_container_width=True)
 
-with tabs[3]:
+with tabs[4]:
     search = st.text_input(text["search"], placeholder=text["search_placeholder"])
     table = filtered.copy()
     if search:
@@ -567,6 +799,6 @@ with tabs[3]:
     filename = "carteira_cs.csv" if language == "pt" else "cs_portfolio.csv"
     st.download_button(text["download"], export.to_csv(index=False), filename, "text/csv")
 
-with tabs[4]:
+with tabs[5]:
     st.subheader(text["methodology_title"])
     st.markdown(text["methodology"])

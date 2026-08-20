@@ -22,6 +22,9 @@ Customer Success teams often have customer, product usage, support and revenue d
 ## Dashboard features
 
 - Executive view of **MRR, ARR, NRR, GRR, logo churn and average health**
+- CS operations view with **onboarding completion, churn target and active/cancelled customers**
+- Onboarding impact comparison and churn breakdown by customer type, segment, plan or CSM
+- Entry-cohort churn analysis and operational attention list
 - Customer health segmentation: **Healthy, At risk and Critical**
 - MRR evolution and monthly revenue waterfall
 - Risk exposure by customer value and segment
@@ -29,6 +32,22 @@ Customer Success teams often have customer, product usage, support and revenue d
 - Filters by segment, plan and CSM owner
 - Searchable portfolio and CSV export
 - Documented health-score methodology
+- Backward-compatible CSV import with optional CS operations fields
+
+## CSV portfolio import
+
+Download the template directly from the dashboard. The original portfolio fields remain required, while the fields below enable the CS operations view:
+
+| Field | Meaning |
+|---|---|
+| `entry_date` | Customer entry date in `YYYY-MM-DD` format |
+| `cancellation_date` | Cancellation date; leave blank for active customers |
+| `customer_type` | Customer category, such as Individual, Agency or Partner |
+| `accounts` | Number of accounts associated with the customer |
+| `onboarding_completed` | `Yes`/`No` or `Sim`/`Não` |
+| `onboarding_date` | Onboarding completion date; leave blank when not completed |
+
+Legacy CSV files without these optional fields continue to load normally; only the CS operations tab stays unavailable.
 
 ## Health score
 
@@ -97,8 +116,9 @@ python generate_data.py
 ├── app.py                    # Streamlit interface
 ├── data/                     # Synthetic portfolio and history
 ├── generate_data.py          # Reproducible demo-data generator
-├── src/metrics.py            # Health score, KPIs and filters
-├── tests/test_metrics.py     # Business-logic tests
+├── src/data_loader.py        # CSV validation and normalization
+├── src/metrics.py            # Health score, operational KPIs and filters
+├── tests/                    # Data-validation and business-logic tests
 └── .github/workflows/ci.yml  # Automated quality checks
 ```
 
@@ -115,6 +135,10 @@ Ele responde perguntas como:
 - Quais renovações estão próximas e com baixa saúde?
 - Expansão e retenção estão compensando o churn?
 - Onde o time de CS deve concentrar seus esforços?
+- Qual é o impacto da conclusão do onboarding no churn?
+- Quais safras e tipos de cliente apresentam maior cancelamento?
+
+A aba **Operação de CS** acompanha clientes ativos e cancelados, total de contas, meta de churn, conclusão do onboarding, comparação com e sem onboarding, churn por safra e uma lista de clientes que exigem atenção. O modelo de CSV disponível no próprio dashboard já inclui os novos campos operacionais.
 
 O projeto utiliza somente dados sintéticos e pode ser executado localmente com os comandos apresentados acima.
 
@@ -125,4 +149,3 @@ O projeto utiliza somente dados sintéticos e pode ser executado localmente com 
 ## License
 
 Licensed under the [MIT License](LICENSE).
-
