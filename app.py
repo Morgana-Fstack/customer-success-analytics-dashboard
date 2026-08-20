@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import io
 from pathlib import Path
 
 import pandas as pd
@@ -7,6 +8,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
 
+from src.data_loader import CustomerDataError, customer_template, prepare_uploaded_customers
 from src.metrics import add_health_fields, filter_customers, portfolio_kpis
 
 ROOT = Path(__file__).parent
@@ -70,19 +72,58 @@ TRANSLATIONS = {
         "status": "Status",
         "renewal_days": "Dias para renovação",
         "download": "Baixar carteira filtrada",
+        "data_source": "Fonte de dados",
+        "upload": "Importar carteira em CSV",
+        "upload_help": "Envie um arquivo baseado no modelo. CSV com vírgula ou ponto e vírgula é aceito.",
+        "download_template": "Baixar modelo de CSV",
+        "using_demo": "Usando a carteira demonstrativa",
+        "upload_success": "clientes importados com sucesso",
+        "upload_fallback": "O arquivo não foi importado. A carteira demonstrativa continua ativa.",
+        "history_unavailable": (
+            "O CSV contém uma fotografia atual da carteira. Envie um histórico mensal em uma evolução futura "
+            "para gerar este gráfico sem misturar dados demonstrativos."
+        ),
+        "active_customers": "Clientes ativos",
+        "upload_error_empty": "O arquivo está vazio.",
+        "upload_error_missing_columns": "Colunas obrigatórias ausentes",
+        "upload_error_empty_values": "Há valores vazios na coluna",
+        "upload_error_duplicate_ids": "Existem IDs de clientes duplicados.",
+        "upload_error_invalid_status": "Status inválido. Use Active/Ativo ou Churned/Cancelado",
+        "upload_error_invalid_numeric": "Há um valor que não é numérico na coluna",
+        "upload_error_negative_values": "Os campos numéricos não podem conter valores negativos.",
+        "upload_error_invalid_feature_adoption": "A adoção de funcionalidades deve estar entre 0 e 100.",
+        "upload_error_invalid_csat": "O CSAT deve estar entre 0 e 5.",
+        "upload_error_invalid_seats": "Licenças contratadas deve ser igual ou maior que 1.",
+        "upload_error_read": "Não foi possível ler o CSV. Verifique o formato e a codificação do arquivo.",
+        "score_explainer_title": "Entenda o cálculo do health score",
         "methodology_title": "Como o health score funciona",
         "methodology": """
-O health score é um modelo transparente e ponderado de 0 a 100:
+O health score combina quatro dimensões e gera uma nota de **0 a 100**:
 
-- **35% Adoção do produto:** usuários ativos mensais ÷ licenças contratadas
-- **25% Adoção de funcionalidades:** percentual de funcionalidades estratégicas utilizadas
-- **20% Relacionamento:** tempo desde a última interação do CSM
-- **20% Experiência com suporte:** CSAT ajustado pelo volume de tickets abertos
+1. **Uso do produto — 35%**  
+   `mínimo(usuários ativos mensais ÷ licenças contratadas, 1) × 100`  
+   Exemplo: 80 usuários ativos em 100 licenças geram 80 pontos nesta dimensão.
+
+2. **Adoção de funcionalidades — 25%**  
+   Usa diretamente o percentual de funcionalidades estratégicas adotadas, limitado entre 0 e 100.
+
+3. **Relacionamento — 20%**  
+   `100 − (dias desde o último contato × 2)`  
+   Um contato hoje gera 100 pontos; há 25 dias, 50 pontos; há 50 dias ou mais, 0 ponto.
+
+4. **Experiência com suporte — 20%**  
+   `(CSAT ÷ 5 × 100) − (tickets abertos × 8)`  
+   Cada ticket aberto reduz 8 pontos da nota de suporte. O resultado fica limitado entre 0 e 100.
+
+**Nota final:** `uso × 35% + adoção × 25% + relacionamento × 20% + suporte × 20%`
 
 **Saudável:** 70–100 · **Em risco:** 50–69 · **Crítico:** 0–49
 
 A fila de ações combina risco, valor da conta e proximidade da renovação.
 Todos os dados deste projeto são sintéticos e não contêm informações de clientes reais.
+
+Os valores são exibidos em reais na interface em português e em dólares na interface em inglês.
+Essa troca é apenas uma convenção de apresentação da demonstração, sem conversão cambial.
 """,
         "active": "Ativo",
         "churned": "Cancelado",
@@ -143,19 +184,58 @@ Todos os dados deste projeto são sintéticos e não contêm informações de cl
         "status": "Status",
         "renewal_days": "Days to renewal",
         "download": "Download filtered portfolio",
+        "data_source": "Data source",
+        "upload": "Upload customer portfolio CSV",
+        "upload_help": "Upload a file based on the template. Comma- and semicolon-separated CSV files are accepted.",
+        "download_template": "Download CSV template",
+        "using_demo": "Using the demo portfolio",
+        "upload_success": "customers imported successfully",
+        "upload_fallback": "The file was not imported. The demo portfolio remains active.",
+        "history_unavailable": (
+            "The CSV is a current portfolio snapshot. Add monthly history in a future iteration to generate "
+            "this chart without mixing in demo data."
+        ),
+        "active_customers": "Active customers",
+        "upload_error_empty": "The file is empty.",
+        "upload_error_missing_columns": "Required columns are missing",
+        "upload_error_empty_values": "There are empty values in column",
+        "upload_error_duplicate_ids": "Duplicate customer IDs were found.",
+        "upload_error_invalid_status": "Invalid status. Use Active/Ativo or Churned/Cancelado",
+        "upload_error_invalid_numeric": "A non-numeric value was found in column",
+        "upload_error_negative_values": "Numeric fields cannot contain negative values.",
+        "upload_error_invalid_feature_adoption": "Feature adoption must be between 0 and 100.",
+        "upload_error_invalid_csat": "CSAT must be between 0 and 5.",
+        "upload_error_invalid_seats": "Contracted seats must be at least 1.",
+        "upload_error_read": "The CSV could not be read. Check its format and encoding.",
+        "score_explainer_title": "Understand the health score calculation",
         "methodology_title": "How the health score works",
         "methodology": """
-The health score is a transparent 0–100 weighted model:
+The health score combines four dimensions into a **0–100** score:
 
-- **35% Product adoption:** monthly active users ÷ contracted seats
-- **25% Feature adoption:** percentage of strategic features used
-- **20% Relationship:** recency of the last CSM interaction
-- **20% Support experience:** CSAT adjusted by open ticket volume
+1. **Product usage — 35%**  
+   `min(monthly active users ÷ contracted seats, 1) × 100`  
+   Example: 80 active users across 100 contracted seats produces 80 points for this dimension.
+
+2. **Feature adoption — 25%**  
+   Uses the percentage of strategic features adopted, capped between 0 and 100.
+
+3. **Relationship — 20%**  
+   `100 − (days since last contact × 2)`  
+   Contact today produces 100 points; 25 days ago, 50 points; 50 days ago or more, 0 points.
+
+4. **Support experience — 20%**  
+   `(CSAT ÷ 5 × 100) − (open tickets × 8)`  
+   Each open ticket subtracts 8 support points. The result is capped between 0 and 100.
+
+**Final score:** `usage × 35% + adoption × 25% + relationship × 20% + support × 20%`
 
 **Healthy:** 70–100 · **At risk:** 50–69 · **Critical:** 0–49
 
 The action queue combines risk, account value and renewal proximity.
 All data in this project is synthetic and contains no real customer information.
+
+Values are displayed in Brazilian reais in Portuguese and US dollars in English.
+This is a presentation convention for the demo, not a foreign-exchange conversion.
 """,
         "active": "Active",
         "churned": "Churned",
@@ -202,16 +282,44 @@ def load_data() -> tuple[pd.DataFrame, pd.DataFrame]:
 
 def money(value: float, language: str) -> str:
     if language == "pt":
-        return f"US$ {value:,.0f}".replace(",", ".")
+        return f"R$ {value:,.0f}".replace(",", ".")
     return f"${value:,.0f}"
 
 
-customers, history = load_data()
+demo_customers, history = load_data()
+customers = demo_customers
+using_uploaded_portfolio = False
 
 with st.sidebar:
     language_label = st.radio("Idioma / Language", ["Português", "English"], horizontal=True)
     language = "pt" if language_label == "Português" else "en"
     text = TRANSLATIONS[language]
+
+    st.subheader(text["data_source"])
+    st.download_button(
+        text["download_template"],
+        customer_template().to_csv(index=False).encode("utf-8-sig"),
+        "modelo_carteira_clientes.csv" if language == "pt" else "customer_portfolio_template.csv",
+        "text/csv",
+        use_container_width=True,
+    )
+    uploaded_file = st.file_uploader(text["upload"], type=["csv"], help=text["upload_help"])
+    if uploaded_file is not None:
+        try:
+            uploaded_data = pd.read_csv(io.BytesIO(uploaded_file.getvalue()), sep=None, engine="python")
+            customers = add_health_fields(prepare_uploaded_customers(uploaded_data))
+            using_uploaded_portfolio = True
+            st.success(f"{len(customers)} {text['upload_success']}")
+        except CustomerDataError as error:
+            message = text.get(f"upload_error_{error.code}", text["upload_error_read"])
+            details = f": {error.details}" if error.details else ""
+            st.error(f"{message}{details}\n\n{text['upload_fallback']}")
+        except (OSError, UnicodeError, pd.errors.ParserError):
+            st.error(f"{text['upload_error_read']}\n\n{text['upload_fallback']}")
+    else:
+        st.caption(text["using_demo"])
+
+    st.divider()
     st.title(text["filters"])
     selected_segments = st.multiselect(text["segment"], sorted(customers["segment"].unique()))
     selected_plans = st.multiselect(text["plan"], sorted(customers["plan"].unique()))
@@ -221,6 +329,8 @@ with st.sidebar:
 
 health_labels = {"Healthy": text["healthy"], "At risk": text["at_risk"], "Critical": text["critical"]}
 localized_colors = {health_labels[key]: value for key, value in HEALTH_COLORS.items()}
+currency_prefix = "R$ " if language == "pt" else "$"
+currency_format = "R$ %d" if language == "pt" else "$%d"
 
 filtered = filter_customers(customers, selected_segments, selected_plans, selected_csms)
 kpis = portfolio_kpis(filtered)
@@ -239,20 +349,27 @@ with tabs[0]:
     cols[3].metric(text["logo_churn"], f"{kpis['logo_churn']:.1%}")
     cols[4].metric(text["average_health"], f"{kpis['average_health']:.0f}/100")
 
+    with st.expander(text["score_explainer_title"]):
+        st.markdown(text["methodology"])
+
     left, right = st.columns([1.65, 1])
     with left:
-        fig = px.area(
-            history,
-            x="month",
-            y="mrr",
-            title=text["mrr_evolution"],
-            markers=True,
-            labels={"month": text["month"], "mrr": "MRR"},
-        )
-        fig.update_traces(line_color="#8b5cf6", fillcolor="rgba(139,92,246,.18)")
-        fig.update_layout(yaxis_tickprefix="$", hovermode="x unified")
-        fig.update_xaxes(tickformat="%m/%Y" if language == "pt" else "%b %Y")
-        st.plotly_chart(fig, use_container_width=True)
+        if using_uploaded_portfolio:
+            st.subheader(text["mrr_evolution"])
+            st.info(text["history_unavailable"])
+        else:
+            fig = px.area(
+                history,
+                x="month",
+                y="mrr",
+                title=text["mrr_evolution"],
+                markers=True,
+                labels={"month": text["month"], "mrr": "MRR"},
+            )
+            fig.update_traces(line_color="#8b5cf6", fillcolor="rgba(139,92,246,.18)")
+            fig.update_layout(yaxis_tickprefix=currency_prefix, hovermode="x unified")
+            fig.update_xaxes(tickformat="%m/%Y" if language == "pt" else "%b %Y")
+            st.plotly_chart(fig, use_container_width=True)
     with right:
         health_counts = active["health_status"].value_counts().reindex(HEALTH_ORDER, fill_value=0)
         localized_health_counts = health_counts.rename(index=health_labels)
@@ -307,7 +424,7 @@ with tabs[1]:
                 "customer_name": text["customer_name"],
             },
         )
-        fig.update_layout(yaxis_tickprefix="$")
+        fig.update_layout(yaxis_tickprefix=currency_prefix)
         st.plotly_chart(fig, use_container_width=True)
     with right:
         segment_health = (
@@ -354,7 +471,7 @@ with tabs[1]:
             "customer_name": text["customer_name"],
             "segment": text["segment"],
             "csm": text["csm"],
-            "mrr": st.column_config.NumberColumn("MRR", format="$%d"),
+            "mrr": st.column_config.NumberColumn("MRR", format=currency_format),
             "health_score": st.column_config.ProgressColumn(text["health_score"], min_value=0, max_value=100),
             "health_status": text["health_status"],
             "renewal_days": text["days_to_renewal"],
@@ -366,37 +483,41 @@ with tabs[1]:
 
 with tabs[2]:
     cols = st.columns(4)
-    latest = history.iloc[-1]
     cols[0].metric(text["current_mrr"], money(kpis["mrr"], language))
     cols[1].metric(text["risk_mrr"], money(kpis["at_risk_mrr"], language))
     cols[2].metric(text["grr"], f"{kpis['grr']:.1%}")
-    cols[3].metric(text["monthly_churn"], money(latest["churned_mrr"], language))
-    waterfall = go.Figure(
-        go.Waterfall(
-            x=[
-                text["opening_mrr"],
-                text["new"],
-                text["expansion"],
-                text["contraction"],
-                text["churn"],
-                text["closing_mrr"],
-            ],
-            y=[
-                history.iloc[-2]["mrr"],
-                latest["new_mrr"],
-                latest["expansion_mrr"],
-                -latest["contraction_mrr"],
-                -latest["churned_mrr"],
-                0,
-            ],
-            measure=["absolute", "relative", "relative", "relative", "relative", "total"],
-            increasing={"marker": {"color": "#22c55e"}},
-            decreasing={"marker": {"color": "#ef4444"}},
-            totals={"marker": {"color": "#8b5cf6"}},
+    if using_uploaded_portfolio:
+        cols[3].metric(text["active_customers"], f"{kpis['active_customers']:.0f}")
+        st.info(text["history_unavailable"])
+    else:
+        latest = history.iloc[-1]
+        cols[3].metric(text["monthly_churn"], money(latest["churned_mrr"], language))
+        waterfall = go.Figure(
+            go.Waterfall(
+                x=[
+                    text["opening_mrr"],
+                    text["new"],
+                    text["expansion"],
+                    text["contraction"],
+                    text["churn"],
+                    text["closing_mrr"],
+                ],
+                y=[
+                    history.iloc[-2]["mrr"],
+                    latest["new_mrr"],
+                    latest["expansion_mrr"],
+                    -latest["contraction_mrr"],
+                    -latest["churned_mrr"],
+                    0,
+                ],
+                measure=["absolute", "relative", "relative", "relative", "relative", "total"],
+                increasing={"marker": {"color": "#22c55e"}},
+                decreasing={"marker": {"color": "#ef4444"}},
+                totals={"marker": {"color": "#8b5cf6"}},
+            )
         )
-    )
-    waterfall.update_layout(title=text["mrr_movement"], yaxis_tickprefix="$", showlegend=False)
-    st.plotly_chart(waterfall, use_container_width=True)
+        waterfall.update_layout(title=text["mrr_movement"], yaxis_tickprefix=currency_prefix, showlegend=False)
+        st.plotly_chart(waterfall, use_container_width=True)
 
 with tabs[3]:
     search = st.text_input(text["search"], placeholder=text["search_placeholder"])
@@ -438,7 +559,7 @@ with tabs[3]:
         hide_index=True,
         column_config={
             **column_labels,
-            "mrr": st.column_config.NumberColumn("MRR", format="$%d"),
+            "mrr": st.column_config.NumberColumn("MRR", format=currency_format),
             "health_score": st.column_config.ProgressColumn(text["health_score"], min_value=0, max_value=100),
         },
     )
