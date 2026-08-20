@@ -83,7 +83,7 @@ def prepare_uploaded_customers(data: pd.DataFrame) -> pd.DataFrame:
         raise CustomerDataError("empty")
 
     result = data.copy()
-    result.columns = result.columns.str.strip()
+    result.columns = result.columns.str.strip().str.lstrip("\ufeff")
     missing = [column for column in REQUIRED_CUSTOMER_COLUMNS if column not in result.columns]
     if missing:
         raise CustomerDataError("missing_columns", ", ".join(missing))
