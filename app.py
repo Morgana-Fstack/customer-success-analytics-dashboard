@@ -167,9 +167,26 @@ st.markdown(
     """
     <style>
       .block-container {padding-top: 1.5rem; padding-bottom: 2rem;}
-      [data-testid="stMetric"] {background:#111827; border:1px solid #273244; padding:16px; border-radius:14px;}
-      [data-testid="stMetricLabel"] {color:#a7b0c0;}
-      .insight {background:#111827; border-left:4px solid #8b5cf6; padding:14px 16px; border-radius:8px; margin:8px 0;}
+      [data-testid="stSidebar"] {border-right:1px solid #d8dee8;}
+      [data-testid="stMetric"] {
+        background:#f4f6fa;
+        border:1px solid #d8dee8;
+        box-shadow:0 6px 18px rgba(51,65,85,.06);
+        padding:16px;
+        border-radius:14px;
+      }
+      [data-testid="stMetricLabel"] {color:#64748b;}
+      .insight {
+        background:#f4f6fa;
+        border:1px solid #d8dee8;
+        border-left:4px solid #6d5bd0;
+        box-shadow:0 6px 18px rgba(51,65,85,.05);
+        color:#334155;
+        padding:14px 16px;
+        border-radius:10px;
+        margin:8px 0;
+      }
+      div[data-testid="stDataFrame"] {border-radius:12px; overflow:hidden;}
     </style>
     """,
     unsafe_allow_html=True,
