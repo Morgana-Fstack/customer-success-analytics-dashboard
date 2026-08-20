@@ -35,3 +35,9 @@ def test_duplicate_customer_id_is_rejected() -> None:
     data = pd.concat([customer_template(), customer_template()], ignore_index=True)
     with pytest.raises(CustomerDataError, match="duplicate_ids"):
         prepare_uploaded_customers(data)
+
+
+def test_utf8_bom_is_removed_from_first_header() -> None:
+    data = customer_template().rename(columns={"customer_id": "\ufeffcustomer_id"})
+    result = prepare_uploaded_customers(data)
+    assert "customer_id" in result.columns
