@@ -119,7 +119,8 @@ python generate_data.py
 ├── data/                     # Synthetic portfolio and history
 ├── generate_data.py          # Reproducible demo-data generator
 ├── src/data_loader.py        # CSV validation and normalization
-├── src/metrics.py            # Health score, operational KPIs and filters
+├── src/metrics.py            # Health score, portfolio KPIs and filters
+├── src/operations.py         # Onboarding, churn and CS operations metrics
 ├── tests/                    # Data-validation and business-logic tests
 └── .github/workflows/ci.yml  # Automated quality checks
 ```
@@ -133,7 +134,7 @@ Dashboard interativo que transforma dados de uma carteira de Customer Success em
 Ele responde perguntas como:
 
 - Quais clientes precisam de atenção imediata?
-- Quanto de receita está exposto a risco?
+- Quanto de receita está exposta a risco?
 - Quais renovações estão próximas e com baixa saúde?
 - Expansão e retenção estão compensando o churn?
 - Onde o time de CS deve concentrar seus esforços?
