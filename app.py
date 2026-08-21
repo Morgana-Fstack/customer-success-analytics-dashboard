@@ -136,7 +136,9 @@ TRANSLATIONS = {
         "upload_error_missing_columns": "Colunas obrigatórias ausentes",
         "upload_error_empty_values": "Há valores vazios na coluna",
         "upload_error_duplicate_ids": "Existem IDs de clientes duplicados.",
-        "upload_error_invalid_status": "Status inválido. Use Active/Ativo ou Churned/Cancelado",
+        "upload_error_invalid_status": (
+            "Status inválido. Use Active/Ativo/Mensal ou Churned/Cancelado/Desistência/Inativo"
+        ),
         "upload_error_invalid_numeric": "Há um valor que não é numérico na coluna",
         "upload_error_negative_values": "Os campos numéricos não podem conter valores negativos.",
         "upload_error_invalid_feature_adoption": "A adoção de funcionalidades deve estar entre 0 e 100.",
@@ -293,7 +295,9 @@ Essa troca é apenas uma convenção de apresentação da demonstração, sem co
         "upload_error_missing_columns": "Required columns are missing",
         "upload_error_empty_values": "There are empty values in column",
         "upload_error_duplicate_ids": "Duplicate customer IDs were found.",
-        "upload_error_invalid_status": "Invalid status. Use Active/Ativo or Churned/Cancelado",
+        "upload_error_invalid_status": (
+            "Invalid status. Use Active/Ativo/Mensal or Churned/Cancelado/Desistência/Inativo"
+        ),
         "upload_error_invalid_numeric": "A non-numeric value was found in column",
         "upload_error_negative_values": "Numeric fields cannot contain negative values.",
         "upload_error_invalid_feature_adoption": "Feature adoption must be between 0 and 100.",

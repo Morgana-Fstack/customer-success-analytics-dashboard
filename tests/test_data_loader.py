@@ -17,6 +17,23 @@ def test_portuguese_status_is_normalized() -> None:
     assert result.iloc[0]["status"] == "Active"
 
 
+def test_operational_statuses_are_normalized() -> None:
+    expected = {
+        "Desistencia": "Churned",
+        "Desistência": "Churned",
+        "Inativo": "Churned",
+        "Mensal": "Active",
+    }
+
+    for raw_status, normalized_status in expected.items():
+        data = customer_template()
+        data.loc[0, "status"] = raw_status
+
+        result = prepare_uploaded_customers(data)
+
+        assert result.iloc[0]["status"] == normalized_status
+
+
 def test_missing_column_is_rejected() -> None:
     data = customer_template().drop(columns=["csat_score"])
     with pytest.raises(CustomerDataError, match="missing_columns"):

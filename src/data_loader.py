@@ -48,8 +48,12 @@ NUMERIC_CUSTOMER_COLUMNS = [
 STATUS_ALIASES = {
     "active": "Active",
     "ativo": "Active",
+    "mensal": "Active",
     "churned": "Churned",
     "cancelado": "Churned",
+    "desistencia": "Churned",
+    "desistência": "Churned",
+    "inativo": "Churned",
 }
 
 ONBOARDING_ALIASES = {
