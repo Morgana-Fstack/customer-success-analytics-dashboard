@@ -22,6 +22,8 @@ REQUIRED_CUSTOMER_COLUMNS = [
     "renewal_days",
 ]
 
+# Extra operational fields from earlier iterations remain accepted for
+# backward compatibility, but they are not part of the official source schema.
 OPTIONAL_CS_COLUMNS = [
     "entry_date",
     "cancellation_date",
@@ -88,15 +90,16 @@ class CustomerDataError(ValueError):
 
 
 def customer_template() -> pd.DataFrame:
+    """Return a one-row template matching the 17-column source schema."""
     return pd.DataFrame(
         [
             {
                 "customer_id": "CUST-0001",
                 "customer_name": "Empresa Exemplo",
-                "segment": "Mid-market",
+                "segment": "Agência",
                 "plan": "Growth",
                 "csm": "Ana Costa",
-                "status": "Active",
+                "status": "Ativo",
                 "starting_mrr": 2500,
                 "mrr": 2750,
                 "expansion_mrr": 250,
@@ -108,15 +111,9 @@ def customer_template() -> pd.DataFrame:
                 "open_tickets": 1,
                 "csat_score": 4.5,
                 "renewal_days": 90,
-                "entry_date": "2026-01-15",
-                "cancellation_date": "",
-                "customer_type": "Individual",
-                "accounts": 1,
-                "onboarding_completed": "Yes",
-                "onboarding_date": "2026-01-27",
             }
         ],
-        columns=REQUIRED_CUSTOMER_COLUMNS + OPTIONAL_CS_COLUMNS,
+        columns=REQUIRED_CUSTOMER_COLUMNS,
     )
 
 
