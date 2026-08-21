@@ -1,7 +1,21 @@
 import pandas as pd
 import pytest
 
-from src.data_loader import CustomerDataError, customer_template, prepare_uploaded_customers
+from src.data_loader import (
+    OPTIONAL_CS_COLUMNS,
+    REQUIRED_CUSTOMER_COLUMNS,
+    CustomerDataError,
+    customer_template,
+    prepare_uploaded_customers,
+)
+
+
+def test_template_matches_official_source_schema() -> None:
+    template = customer_template()
+
+    assert list(template.columns) == REQUIRED_CUSTOMER_COLUMNS
+    assert len(template.columns) == 17
+    assert not set(OPTIONAL_CS_COLUMNS).intersection(template.columns)
 
 
 def test_template_is_a_valid_upload() -> None:
@@ -71,37 +85,24 @@ def test_utf8_bom_is_removed_from_first_header() -> None:
     assert "customer_id" in result.columns
 
 
-def test_template_preserves_cs_operations_fields() -> None:
-    result = prepare_uploaded_customers(customer_template())
+def test_optional_legacy_fields_remain_supported() -> None:
+    data = customer_template().assign(
+        entry_date="2026-01-15",
+        cancellation_date="",
+        customer_type="Individual",
+        accounts=1,
+        onboarding_completed="Sim",
+        onboarding_date="2026-01-27",
+    )
+
+    result = prepare_uploaded_customers(data)
+
     assert result.iloc[0]["onboarding_completed"] == "Yes"
     assert result.iloc[0]["accounts"] == 1
     assert pd.api.types.is_datetime64_any_dtype(result["entry_date"])
 
 
-def test_portuguese_onboarding_value_is_normalized() -> None:
-    data = customer_template()
-    data.loc[0, "onboarding_completed"] = "Sim"
-    result = prepare_uploaded_customers(data)
-    assert result.iloc[0]["onboarding_completed"] == "Yes"
-
-
-def test_invalid_operational_date_is_rejected() -> None:
-    data = customer_template()
-    data.loc[0, "entry_date"] = "not-a-date"
+def test_invalid_optional_date_is_rejected() -> None:
+    data = customer_template().assign(entry_date="not-a-date")
     with pytest.raises(CustomerDataError, match="invalid_date"):
         prepare_uploaded_customers(data)
-
-
-def test_legacy_template_without_optional_fields_still_works() -> None:
-    data = customer_template().drop(
-        columns=[
-            "entry_date",
-            "cancellation_date",
-            "customer_type",
-            "accounts",
-            "onboarding_completed",
-            "onboarding_date",
-        ]
-    )
-    result = prepare_uploaded_customers(data)
-    assert "onboarding_completed" not in result.columns
