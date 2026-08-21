@@ -7,7 +7,7 @@
 
 An interactive dashboard that turns Customer Success portfolio data into clear retention and revenue decisions. It combines executive KPIs, a transparent customer health score, revenue movement analysis and a prioritized action queue.
 
-> Portfolio project built with synthetic data. No real customer information is used.
+> Portfolio project built with anonymized operational distributions and synthetic product and revenue data. No real customer names or identifying information are used.
 
 ## Business problem
 
@@ -48,6 +48,8 @@ Download the template directly from the dashboard. The original portfolio fields
 | `onboarding_date` | Onboarding completion date; leave blank when not completed |
 
 Legacy CSV files without these optional fields continue to load normally; only the CS operations tab stays unavailable.
+
+The demonstration portfolio contains **136 anonymized customers** and preserves the operational distribution of the reference CS analysis: 72 active customers, 64 cancellations, 163 accounts, and onboarding groups that make retention impact visible. Product usage, support and revenue values remain fully synthetic.
 
 ## Health score
 
@@ -140,7 +142,7 @@ Ele responde perguntas como:
 
 A aba **Operação de CS** acompanha clientes ativos e cancelados, total de contas, meta de churn, conclusão do onboarding, comparação com e sem onboarding, churn por safra e uma lista de clientes que exigem atenção. O modelo de CSV disponível no próprio dashboard já inclui os novos campos operacionais.
 
-O projeto utiliza somente dados sintéticos e pode ser executado localmente com os comandos apresentados acima.
+A carteira demonstrativa possui **136 clientes anonimizados**, 72 ativos, 64 cancelados e 163 contas. As distribuições operacionais preservam a lógica da análise de referência, enquanto nomes, receita, uso de produto e suporte são fictícios. O projeto pode ser executado localmente com os comandos apresentados acima.
 
 ## Author
 

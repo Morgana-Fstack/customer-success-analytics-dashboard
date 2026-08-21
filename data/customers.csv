@@ -1,181 +1,137 @@
 customer_id,customer_name,segment,plan,csm,status,starting_mrr,mrr,expansion_mrr,contraction_mrr,contracted_seats,monthly_active_users,feature_adoption_pct,days_since_last_contact,open_tickets,csat_score,renewal_days,tenure_months,entry_date,cancellation_date,customer_type,accounts,onboarding_completed,onboarding_date
-CUST-0001,Company 001,Mid-market,Growth,Carla Souza,Churned,3098,0,0,0,76,68,99.9,20,3,4.6,44,2,2024-04-27,2024-11-05,Individual,1,No,
-CUST-0002,Company 002,Mid-market,Growth,Bruno Lima,Active,3216,3759,543,0,24,20,90.3,19,1,4.3,141,13,2025-01-17,,Individual,1,Yes,2025-02-11
-CUST-0003,Company 003,Enterprise,Scale,Bruno Lima,Active,5399,5399,0,0,142,88,64.5,46,0,4.5,188,13,2025-02-12,,Individual,1,Yes,2025-03-14
-CUST-0004,Company 004,Mid-market,Growth,Bruno Lima,Active,3222,3222,0,0,33,15,72.6,18,3,5.0,246,2,2024-11-07,,VIP,1,Yes,2024-12-02
-CUST-0005,Company 005,SMB,Starter,Diego Alves,Churned,369,0,0,0,21,14,72.9,36,1,4.8,41,33,2025-07-01,2025-10-22,Individual,1,Yes,2025-07-16
-CUST-0006,Company 006,Enterprise,Scale,Bruno Lima,Active,7910,7910,0,0,97,53,62.3,39,3,4.4,298,6,2025-09-28,,Multi-account,7,Yes,2025-10-15
-CUST-0007,Company 007,Mid-market,Growth,Ana Costa,Active,2120,2120,0,0,54,29,53.4,19,3,4.3,171,41,2025-10-05,,Multi-account,5,Yes,2025-10-20
-CUST-0008,Company 008,Mid-market,Growth,Bruno Lima,Active,1721,1721,0,0,67,42,71.4,9,5,5.0,323,23,2025-05-26,,Agency,1,Yes,2025-06-20
-CUST-0009,Company 009,SMB,Starter,Ana Costa,Active,313,334,21,0,15,12,62.9,20,1,4.5,196,35,2025-04-26,,Individual,1,Yes,2025-05-14
-CUST-0010,Company 010,Mid-market,Growth,Carla Souza,Active,2907,2907,0,0,74,47,75.0,40,4,3.8,203,17,2025-03-10,,Individual,1,Yes,2025-03-26
-CUST-0011,Company 011,SMB,Starter,Diego Alves,Active,501,501,0,0,21,12,52.8,29,3,4.2,255,8,2024-07-29,,Individual,1,No,
-CUST-0012,Company 012,Enterprise,Scale,Diego Alves,Active,9124,8476,0,648,205,85,46.4,56,6,4.1,301,10,2025-03-06,,Partner,1,Yes,2025-03-20
-CUST-0013,Company 013,Mid-market,Growth,Carla Souza,Active,1966,2151,185,0,86,60,96.1,24,2,4.2,63,32,2024-01-09,,Individual,1,Yes,2024-01-22
-CUST-0014,Company 014,Enterprise,Scale,Diego Alves,Churned,6676,0,0,0,181,101,59.3,51,3,4.2,190,35,2026-05-03,2026-08-01,Multi-account,7,Yes,2026-05-21
-CUST-0015,Company 015,Mid-market,Growth,Bruno Lima,Active,3204,3204,0,0,98,46,53.5,22,3,3.8,17,14,2024-11-22,,Agency,1,Yes,2024-12-14
-CUST-0016,Company 016,SMB,Starter,Carla Souza,Active,356,356,0,0,15,10,67.0,30,0,4.9,177,18,2025-10-29,,Individual,1,Yes,2025-11-13
-CUST-0017,Company 017,Mid-market,Growth,Ana Costa,Active,2815,2815,0,0,78,57,62.1,20,2,4.6,299,46,2026-04-24,,Partner,1,Yes,2026-05-19
-CUST-0018,Company 018,SMB,Starter,Carla Souza,Active,748,748,0,0,22,15,69.6,24,2,4.5,317,42,2025-03-14,,Individual,1,Yes,2025-04-09
-CUST-0019,Company 019,Enterprise,Scale,Carla Souza,Active,6729,6729,0,0,333,212,77.3,23,0,4.7,108,21,2026-01-30,,Multi-account,5,Yes,2026-02-14
-CUST-0020,Company 020,Mid-market,Growth,Ana Costa,Active,1582,1582,0,0,88,47,79.2,30,1,4.2,145,13,2025-02-27,,Individual,1,Yes,2025-03-27
-CUST-0021,Company 021,Mid-market,Growth,Carla Souza,Active,913,913,0,0,62,48,70.3,15,2,4.5,205,16,2024-04-26,,VIP,1,Yes,2024-05-03
-CUST-0022,Company 022,SMB,Starter,Carla Souza,Active,862,931,69,0,5,4,99.9,25,0,4.3,149,27,2024-01-24,,Multi-account,3,Yes,2024-02-22
-CUST-0023,Company 023,Enterprise,Scale,Bruno Lima,Active,11555,11555,0,0,237,137,55.2,28,1,3.3,70,28,2024-04-29,,Multi-account,6,No,
-CUST-0024,Company 024,Enterprise,Scale,Carla Souza,Active,5548,5989,441,0,138,113,89.6,9,1,4.6,116,10,2026-04-12,,Individual,1,Yes,2026-04-23
-CUST-0025,Company 025,Mid-market,Growth,Bruno Lima,Churned,982,0,0,0,91,46,57.1,12,3,4.3,152,5,2025-02-23,2025-10-22,Multi-account,3,Yes,2025-03-13
-CUST-0026,Company 026,SMB,Starter,Bruno Lima,Active,373,373,0,0,9,7,75.0,40,2,4.9,193,25,2024-10-08,,Individual,1,Yes,2024-10-18
-CUST-0027,Company 027,Mid-market,Growth,Ana Costa,Churned,1075,0,0,0,38,19,60.4,24,2,4.8,337,39,2025-01-28,2025-07-11,Partner,1,No,
-CUST-0028,Company 028,SMB,Starter,Bruno Lima,Active,798,671,0,127,9,3,28.8,19,1,4.3,202,9,2024-08-13,,Individual,1,Yes,2024-08-28
-CUST-0029,Company 029,SMB,Starter,Diego Alves,Active,835,835,0,0,17,8,56.3,59,5,3.7,145,21,2026-02-07,,Individual,1,Yes,2026-02-19
-CUST-0030,Company 030,Mid-market,Growth,Diego Alves,Churned,1298,0,0,0,65,40,70.9,33,2,4.1,244,9,2026-06-01,2026-07-30,Individual,1,No,
-CUST-0031,Company 031,Mid-market,Growth,Carla Souza,Churned,2841,0,0,0,95,62,71.2,29,0,4.5,284,13,2024-03-15,2024-08-29,Individual,1,No,
-CUST-0032,Company 032,Enterprise,Scale,Carla Souza,Active,5023,5023,0,0,213,95,58.9,21,2,4.8,161,30,2025-09-26,,Individual,1,Yes,2025-10-18
-CUST-0033,Company 033,SMB,Starter,Carla Souza,Active,520,520,0,0,10,8,87.4,11,4,5.0,182,15,2024-10-23,,Multi-account,5,Yes,2024-10-28
-CUST-0034,Company 034,SMB,Starter,Bruno Lima,Active,659,659,0,0,5,3,53.8,29,1,4.5,85,14,2024-02-11,,Individual,1,Yes,2024-03-08
-CUST-0035,Company 035,Mid-market,Growth,Bruno Lima,Active,2771,2771,0,0,20,11,66.1,25,2,4.1,317,48,2026-03-25,,Partner,1,Yes,2026-04-22
-CUST-0036,Company 036,SMB,Starter,Carla Souza,Active,824,824,0,0,12,6,62.6,14,0,4.0,318,10,2024-02-24,,Individual,1,Yes,2024-03-13
-CUST-0037,Company 037,SMB,Starter,Diego Alves,Active,326,326,0,0,23,16,72.0,13,1,4.7,69,10,2024-06-30,,Partner,1,Yes,2024-07-18
-CUST-0038,Company 038,Mid-market,Growth,Bruno Lima,Active,1410,1410,0,0,61,37,51.4,16,1,3.7,131,45,2024-01-23,,Partner,1,Yes,2024-02-14
-CUST-0039,Company 039,SMB,Starter,Carla Souza,Active,468,468,0,0,22,13,82.6,13,4,4.2,104,27,2025-02-20,,Individual,1,Yes,2025-02-28
-CUST-0040,Company 040,Mid-market,Growth,Bruno Lima,Active,1706,1987,281,0,28,21,85.3,14,2,4.5,338,4,2025-06-13,,Partner,1,Yes,2025-07-06
-CUST-0041,Company 041,Mid-market,Growth,Bruno Lima,Active,3494,3796,302,0,27,21,85.0,24,5,5.0,30,21,2024-10-10,,Multi-account,2,Yes,2024-10-19
-CUST-0042,Company 042,Enterprise,Scale,Bruno Lima,Active,10107,11560,1453,0,346,253,100.0,26,3,4.6,81,28,2024-03-04,,Partner,1,Yes,2024-03-25
-CUST-0043,Company 043,Mid-market,Growth,Ana Costa,Churned,1733,0,0,0,28,11,21.8,30,3,3.0,120,13,2024-04-12,2025-07-22,Individual,1,No,
-CUST-0044,Company 044,SMB,Starter,Bruno Lima,Active,883,883,0,0,6,3,46.6,26,4,4.4,208,27,2026-04-04,,Individual,1,Yes,2026-04-15
-CUST-0045,Company 045,Enterprise,Scale,Carla Souza,Active,7744,9572,1828,0,209,188,94.4,27,3,4.4,96,32,2025-12-12,,Partner,1,Yes,2026-01-04
-CUST-0046,Company 046,Mid-market,Growth,Carla Souza,Active,2201,2201,0,0,93,58,60.9,11,3,4.2,199,13,2026-04-07,,Individual,1,Yes,2026-05-02
-CUST-0047,Company 047,SMB,Starter,Diego Alves,Active,560,560,0,0,18,14,78.6,25,2,4.4,275,40,2025-04-13,,Partner,1,Yes,2025-04-21
-CUST-0048,Company 048,SMB,Starter,Ana Costa,Active,386,386,0,0,6,3,57.6,45,3,4.3,304,23,2025-04-27,,Individual,1,Yes,2025-05-17
-CUST-0049,Company 049,Mid-market,Growth,Diego Alves,Churned,3329,0,0,0,86,41,53.4,25,3,4.3,42,47,2025-11-25,2026-08-01,Partner,1,No,
-CUST-0050,Company 050,SMB,Starter,Diego Alves,Active,308,308,0,0,21,14,83.7,42,0,3.7,56,6,2025-06-28,,Individual,1,Yes,2025-07-14
-CUST-0051,Company 051,SMB,Starter,Bruno Lima,Active,404,404,0,0,21,15,80.4,21,2,4.2,41,17,2025-01-20,,Individual,1,No,
-CUST-0052,Company 052,SMB,Starter,Bruno Lima,Active,437,437,0,0,23,12,59.0,35,3,4.4,333,35,2024-09-14,,VIP,1,No,
-CUST-0053,Company 053,Mid-market,Growth,Bruno Lima,Active,1626,1626,0,0,39,27,62.0,29,5,4.1,241,44,2025-03-04,,Multi-account,7,No,
-CUST-0054,Company 054,Mid-market,Growth,Carla Souza,Active,1242,1242,0,0,98,64,74.0,11,0,3.9,197,12,2024-02-26,,Multi-account,2,Yes,2024-03-08
-CUST-0055,Company 055,Mid-market,Growth,Diego Alves,Active,946,946,0,0,45,28,39.4,17,2,4.4,290,48,2024-06-18,,VIP,1,No,
-CUST-0056,Company 056,Mid-market,Growth,Carla Souza,Churned,2661,0,0,0,84,44,66.9,51,1,4.7,217,11,2025-10-13,2026-08-01,Individual,1,Yes,2025-11-01
-CUST-0057,Company 057,Mid-market,Growth,Carla Souza,Active,3420,3420,0,0,66,43,85.0,34,0,4.5,91,21,2026-02-05,,Individual,1,Yes,2026-03-07
-CUST-0058,Company 058,Mid-market,Growth,Carla Souza,Active,1216,1291,75,0,82,71,76.3,17,1,4.0,190,16,2024-03-30,,Individual,1,Yes,2024-04-02
-CUST-0059,Company 059,SMB,Starter,Ana Costa,Active,477,477,0,0,17,9,60.3,22,2,4.5,259,21,2024-03-26,,Individual,1,Yes,2024-04-24
-CUST-0060,Company 060,SMB,Starter,Carla Souza,Active,603,652,49,0,17,11,71.2,13,1,4.0,19,44,2024-03-16,,Individual,1,Yes,2024-04-11
-CUST-0061,Company 061,Mid-market,Growth,Ana Costa,Active,3311,3311,0,0,69,28,42.2,33,3,4.1,224,36,2025-11-29,,VIP,1,Yes,2025-12-16
-CUST-0062,Company 062,Mid-market,Growth,Diego Alves,Churned,2705,0,0,0,82,34,46.0,22,0,3.6,185,39,2024-10-01,2025-01-03,Individual,1,Yes,2024-10-21
-CUST-0063,Company 063,Mid-market,Growth,Diego Alves,Active,2892,2495,0,397,79,19,5.4,30,3,3.1,31,13,2024-10-15,,Individual,1,Yes,2024-10-28
-CUST-0064,Company 064,Mid-market,Growth,Carla Souza,Active,2410,2679,269,0,30,20,88.3,14,2,4.4,101,46,2024-01-12,,Individual,1,No,
-CUST-0065,Company 065,Mid-market,Growth,Bruno Lima,Churned,1984,0,0,0,86,47,62.2,38,0,4.0,168,22,2026-05-08,2026-08-01,Individual,1,Yes,2026-05-14
-CUST-0066,Company 066,Mid-market,Growth,Carla Souza,Churned,1419,0,0,0,62,34,50.8,26,2,3.8,130,32,2025-01-18,2025-05-09,Individual,1,Yes,2025-02-06
-CUST-0067,Company 067,Mid-market,Growth,Carla Souza,Active,3147,3147,0,0,45,17,23.0,31,3,4.1,111,34,2025-12-05,,Agency,1,Yes,2025-12-30
-CUST-0068,Company 068,SMB,Starter,Carla Souza,Active,782,782,0,0,15,7,53.4,15,4,4.1,240,33,2025-09-16,,Individual,1,Yes,2025-09-25
-CUST-0069,Company 069,SMB,Starter,Carla Souza,Active,315,315,0,0,24,15,72.8,19,2,4.6,152,30,2024-05-05,,Agency,1,Yes,2024-05-28
-CUST-0070,Company 070,Mid-market,Growth,Ana Costa,Active,2760,3438,678,0,88,75,57.0,23,2,4.7,185,24,2025-12-08,,Multi-account,7,Yes,2025-12-31
-CUST-0071,Company 071,SMB,Starter,Ana Costa,Active,350,350,0,0,21,11,53.0,14,2,3.9,293,32,2025-04-30,,Agency,1,Yes,2025-05-24
-CUST-0072,Company 072,SMB,Starter,Bruno Lima,Active,743,743,0,0,14,11,66.7,19,2,4.2,40,44,2025-06-17,,Agency,1,Yes,2025-06-29
-CUST-0073,Company 073,Enterprise,Scale,Carla Souza,Active,10520,9643,0,877,330,77,35.8,33,3,3.0,136,20,2024-06-25,,Individual,1,No,
-CUST-0074,Company 074,SMB,Starter,Bruno Lima,Churned,378,0,0,0,12,7,60.6,13,0,4.4,33,26,2026-01-17,2026-06-25,Individual,1,Yes,2026-01-30
-CUST-0075,Company 075,SMB,Starter,Carla Souza,Active,560,560,0,0,18,10,58.1,43,3,4.0,339,10,2026-04-02,,Individual,1,No,
-CUST-0076,Company 076,SMB,Starter,Bruno Lima,Active,374,353,0,21,17,2,24.1,40,5,2.6,73,18,2024-12-24,,VIP,1,Yes,2025-01-07
-CUST-0077,Company 077,SMB,Starter,Diego Alves,Active,640,640,0,0,9,4,68.4,26,4,3.8,301,38,2024-03-22,,Agency,1,No,
-CUST-0078,Company 078,Mid-market,Growth,Bruno Lima,Active,3311,3311,0,0,41,17,43.4,22,3,3.6,75,32,2026-01-19,,Individual,1,Yes,2026-02-14
-CUST-0079,Company 079,Mid-market,Growth,Diego Alves,Active,1110,1110,0,0,24,15,65.3,12,0,4.8,123,11,2026-02-22,,Individual,1,Yes,2026-03-22
-CUST-0080,Company 080,Mid-market,Growth,Bruno Lima,Active,1933,2060,127,0,31,24,71.0,35,1,4.0,225,27,2025-03-23,,Multi-account,3,Yes,2025-04-06
-CUST-0081,Company 081,Mid-market,Growth,Bruno Lima,Active,3430,4116,686,0,54,46,100.0,13,1,4.3,305,40,2025-05-26,,Agency,1,Yes,2025-06-25
-CUST-0082,Company 082,SMB,Starter,Carla Souza,Churned,480,0,0,0,14,6,48.7,15,2,4.5,70,7,2024-07-15,2025-10-23,Agency,1,No,
-CUST-0083,Company 083,Mid-market,Growth,Bruno Lima,Active,1243,1243,0,0,33,14,47.3,20,3,4.5,83,4,2024-02-29,,Multi-account,4,Yes,2024-03-18
-CUST-0084,Company 084,SMB,Starter,Ana Costa,Active,593,713,120,0,13,11,83.5,26,2,4.3,323,20,2026-04-13,,Agency,1,Yes,2026-04-26
-CUST-0085,Company 085,SMB,Starter,Bruno Lima,Active,605,605,0,0,17,6,28.7,33,2,3.6,122,32,2025-03-02,,Agency,1,Yes,2025-03-05
-CUST-0086,Company 086,SMB,Starter,Diego Alves,Active,697,697,0,0,9,4,60.1,16,1,4.4,82,16,2024-08-30,,Individual,1,Yes,2024-09-19
-CUST-0087,Company 087,Mid-market,Growth,Ana Costa,Active,1715,2043,328,0,47,33,92.0,38,2,3.8,273,40,2025-09-04,,Individual,1,No,
-CUST-0088,Company 088,Mid-market,Growth,Bruno Lima,Active,3384,4194,810,0,49,33,83.1,9,6,3.9,39,41,2024-01-24,,VIP,1,Yes,2024-02-14
-CUST-0089,Company 089,SMB,Starter,Carla Souza,Active,612,612,0,0,15,8,40.9,50,2,4.0,318,27,2024-03-11,,Agency,1,Yes,2024-04-10
-CUST-0090,Company 090,Mid-market,Growth,Carla Souza,Active,1644,1833,189,0,49,42,92.7,20,0,5.0,321,19,2024-08-02,,Individual,1,Yes,2024-08-25
-CUST-0091,Company 091,SMB,Starter,Bruno Lima,Churned,876,0,0,0,19,7,42.9,27,1,3.6,314,3,2025-02-01,2025-09-05,Agency,1,Yes,2025-02-04
-CUST-0092,Company 092,Mid-market,Growth,Ana Costa,Active,3304,2812,0,492,46,13,18.5,29,2,3.8,113,40,2024-11-19,,Individual,1,No,
-CUST-0093,Company 093,Mid-market,Growth,Ana Costa,Active,2197,2197,0,0,54,31,48.4,27,1,4.5,48,44,2024-06-14,,Multi-account,5,Yes,2024-07-02
-CUST-0094,Company 094,SMB,Starter,Bruno Lima,Active,314,359,45,0,12,9,90.3,28,1,5.0,159,22,2024-11-06,,Individual,1,Yes,2024-11-29
-CUST-0095,Company 095,SMB,Starter,Diego Alves,Active,658,766,108,0,8,6,90.6,5,1,4.5,127,26,2024-10-21,,Partner,1,Yes,2024-11-06
-CUST-0096,Company 096,Mid-market,Growth,Ana Costa,Active,2343,2343,0,0,74,49,67.3,17,2,4.2,351,37,2025-04-08,,Individual,1,Yes,2025-04-23
-CUST-0097,Company 097,SMB,Starter,Diego Alves,Active,388,388,0,0,9,4,64.8,29,1,4.6,233,34,2025-05-11,,Individual,1,No,
-CUST-0098,Company 098,SMB,Starter,Carla Souza,Churned,680,0,0,0,10,9,90.0,39,0,4.1,346,8,2026-02-18,2026-08-01,Individual,1,No,
-CUST-0099,Company 099,SMB,Starter,Ana Costa,Churned,804,0,0,0,20,10,68.7,43,4,4.6,276,33,2025-12-13,2026-08-01,Multi-account,5,Yes,2026-01-07
-CUST-0100,Company 100,Enterprise,Scale,Bruno Lima,Active,4400,4400,0,0,383,190,81.7,55,4,3.8,263,45,2024-09-15,,Individual,1,Yes,2024-10-05
-CUST-0101,Company 101,Enterprise,Scale,Ana Costa,Active,9648,9047,0,601,294,80,25.5,51,6,3.6,47,37,2026-03-08,,Individual,1,Yes,2026-03-30
-CUST-0102,Company 102,Mid-market,Growth,Diego Alves,Active,1264,1264,0,0,93,41,43.2,20,2,3.9,31,24,2025-04-04,,Partner,1,Yes,2025-04-19
-CUST-0103,Company 103,SMB,Starter,Carla Souza,Active,749,796,47,0,22,19,89.4,20,1,4.3,23,26,2024-06-14,,Individual,1,Yes,2024-06-24
-CUST-0104,Company 104,Enterprise,Scale,Bruno Lima,Active,7062,7773,711,0,233,185,86.2,38,4,4.2,220,14,2024-10-27,,Individual,1,Yes,2024-11-13
-CUST-0105,Company 105,Mid-market,Growth,Bruno Lima,Active,916,1003,87,0,81,70,85.7,34,1,4.8,79,33,2025-10-16,,Individual,1,Yes,2025-11-14
-CUST-0106,Company 106,Mid-market,Growth,Carla Souza,Active,3412,3412,0,0,46,26,45.5,25,0,4.4,362,13,2025-12-26,,Multi-account,6,Yes,2026-01-14
-CUST-0107,Company 107,Mid-market,Growth,Ana Costa,Active,1331,1331,0,0,56,39,89.8,31,2,4.3,54,18,2024-11-26,,Individual,1,Yes,2024-12-18
-CUST-0108,Company 108,SMB,Starter,Bruno Lima,Active,657,771,114,0,15,10,89.3,15,2,4.7,346,14,2024-05-19,,Individual,1,Yes,2024-05-25
-CUST-0109,Company 109,SMB,Starter,Ana Costa,Active,408,428,20,0,24,15,71.7,9,2,4.7,246,17,2024-06-18,,Individual,1,Yes,2024-07-18
-CUST-0110,Company 110,Enterprise,Scale,Carla Souza,Active,11430,12422,992,0,351,286,91.6,19,2,4.3,45,19,2024-04-01,,Individual,1,Yes,2024-04-10
-CUST-0111,Company 111,Mid-market,Growth,Carla Souza,Active,2819,2819,0,0,59,37,66.8,22,1,4.6,27,5,2025-09-08,,Individual,1,Yes,2025-10-08
-CUST-0112,Company 112,SMB,Starter,Bruno Lima,Active,782,880,98,0,18,12,79.2,15,2,4.9,149,35,2025-03-20,,Individual,1,Yes,2025-04-04
-CUST-0113,Company 113,SMB,Starter,Ana Costa,Active,559,690,131,0,9,6,88.5,28,3,5.0,128,22,2025-02-02,,Individual,1,Yes,2025-03-02
-CUST-0114,Company 114,Mid-market,Growth,Bruno Lima,Active,2115,2115,0,0,84,41,36.0,26,3,3.8,120,46,2025-08-16,,Individual,1,Yes,2025-09-12
-CUST-0115,Company 115,SMB,Starter,Diego Alves,Churned,680,0,0,0,16,4,28.2,40,3,3.4,196,10,2026-01-01,2026-08-01,Multi-account,4,Yes,2026-01-25
-CUST-0116,Company 116,Enterprise,Scale,Ana Costa,Active,10170,12203,2033,0,250,209,100.0,31,1,4.9,53,33,2025-12-03,,Individual,1,Yes,2025-12-31
-CUST-0117,Company 117,Mid-market,Growth,Ana Costa,Churned,3102,0,0,0,81,37,55.0,78,2,4.3,53,10,2024-05-01,2025-01-20,Individual,1,Yes,2024-05-21
-CUST-0118,Company 118,Mid-market,Growth,Ana Costa,Active,946,946,0,0,70,43,66.6,22,2,4.2,256,27,2025-06-04,,Multi-account,7,Yes,2025-06-30
-CUST-0119,Company 119,Mid-market,Growth,Diego Alves,Active,2625,2625,0,0,25,14,55.0,45,2,4.0,362,25,2026-02-18,,Multi-account,4,Yes,2026-02-25
-CUST-0120,Company 120,Mid-market,Growth,Ana Costa,Active,1183,1183,0,0,43,25,61.7,28,2,4.5,105,23,2025-11-14,,Agency,1,Yes,2025-11-18
-CUST-0121,Company 121,Mid-market,Growth,Carla Souza,Churned,1648,0,0,0,34,25,74.4,26,1,4.2,341,32,2024-10-17,2025-09-21,Individual,1,Yes,2024-11-04
-CUST-0122,Company 122,Mid-market,Growth,Diego Alves,Active,3056,3750,694,0,78,67,82.6,19,3,4.5,130,40,2024-12-12,,Individual,1,No,
-CUST-0123,Company 123,SMB,Starter,Carla Souza,Active,450,450,0,0,5,1,56.1,31,2,4.0,127,16,2026-02-25,,Individual,1,Yes,2026-03-22
-CUST-0124,Company 124,SMB,Starter,Bruno Lima,Churned,778,0,0,0,9,6,70.7,17,3,5.0,39,41,2024-01-30,2024-07-23,Individual,1,Yes,2024-02-23
-CUST-0125,Company 125,SMB,Starter,Ana Costa,Churned,577,0,0,0,16,8,70.1,41,3,4.0,158,10,2025-04-08,2026-06-03,Individual,1,No,
-CUST-0126,Company 126,Mid-market,Growth,Ana Costa,Churned,1504,0,0,0,75,47,55.5,19,2,3.5,185,15,2024-04-12,2024-08-27,Agency,1,No,
-CUST-0127,Company 127,SMB,Starter,Ana Costa,Active,500,574,74,0,15,11,83.3,9,2,3.9,245,16,2026-02-28,,Individual,1,Yes,2026-03-17
-CUST-0128,Company 128,SMB,Starter,Diego Alves,Active,618,725,107,0,22,17,82.7,12,1,4.3,63,46,2024-02-04,,Agency,1,Yes,2024-02-21
-CUST-0129,Company 129,SMB,Starter,Ana Costa,Active,759,759,0,0,23,11,58.9,22,0,3.5,74,7,2024-01-21,,Individual,1,Yes,2024-02-10
-CUST-0130,Company 130,Mid-market,Growth,Ana Costa,Active,2475,2475,0,0,30,18,75.3,19,3,4.2,162,20,2024-10-17,,Individual,1,Yes,2024-11-13
-CUST-0131,Company 131,SMB,Starter,Diego Alves,Churned,859,0,0,0,24,12,62.5,26,4,3.7,32,21,2024-06-25,2024-09-28,Partner,1,No,
-CUST-0132,Company 132,Enterprise,Scale,Bruno Lima,Active,10875,12718,1843,0,276,242,67.8,15,2,4.3,58,39,2025-03-13,,Multi-account,6,Yes,2025-04-08
-CUST-0133,Company 133,Mid-market,Growth,Bruno Lima,Active,2858,2858,0,0,70,30,61.3,26,0,3.8,232,24,2024-09-21,,Individual,1,Yes,2024-09-27
-CUST-0134,Company 134,SMB,Starter,Carla Souza,Active,661,726,65,0,6,4,98.4,12,1,4.7,349,47,2024-11-10,,Agency,1,Yes,2024-11-29
-CUST-0135,Company 135,Mid-market,Growth,Carla Souza,Active,1653,1653,0,0,69,45,53.4,30,1,4.8,212,36,2025-05-13,,Individual,1,Yes,2025-05-26
-CUST-0136,Company 136,SMB,Starter,Diego Alves,Active,547,615,68,0,19,13,84.8,69,1,4.9,59,35,2025-05-10,,Individual,1,Yes,2025-06-04
-CUST-0137,Company 137,Enterprise,Scale,Bruno Lima,Active,4510,3959,0,551,265,85,35.3,35,4,3.7,362,37,2026-04-05,,Partner,1,Yes,2026-04-22
-CUST-0138,Company 138,Mid-market,Growth,Carla Souza,Churned,1872,0,0,0,26,9,46.1,25,5,3.7,194,9,2025-02-28,2026-04-23,Individual,1,No,
-CUST-0139,Company 139,Mid-market,Growth,Diego Alves,Active,3308,3308,0,0,61,33,68.2,9,4,4.1,264,23,2025-05-13,,Individual,1,Yes,2025-06-12
-CUST-0140,Company 140,SMB,Starter,Bruno Lima,Churned,555,0,0,0,23,9,51.8,64,1,4.1,77,29,2025-08-21,2026-03-16,Individual,1,Yes,2025-09-05
-CUST-0141,Company 141,Mid-market,Growth,Bruno Lima,Active,1195,1195,0,0,77,51,86.0,26,5,4.6,214,11,2024-06-02,,Individual,1,Yes,2024-06-24
-CUST-0142,Company 142,Mid-market,Growth,Diego Alves,Churned,2595,0,0,0,30,15,73.3,23,3,3.9,34,7,2025-08-11,2026-08-01,Individual,1,No,
-CUST-0143,Company 143,Enterprise,Scale,Ana Costa,Active,11682,14518,2836,0,387,256,53.1,6,1,4.5,231,8,2026-01-31,,Individual,1,Yes,2026-02-06
-CUST-0144,Company 144,Mid-market,Growth,Ana Costa,Active,3155,3155,0,0,96,58,54.7,25,3,3.4,79,39,2024-10-07,,VIP,1,Yes,2024-11-05
-CUST-0145,Company 145,Mid-market,Growth,Carla Souza,Active,1612,1612,0,0,33,18,60.4,27,2,4.3,333,32,2024-06-06,,Agency,1,Yes,2024-06-13
-CUST-0146,Company 146,SMB,Starter,Diego Alves,Active,572,572,0,0,21,11,44.5,20,0,4.5,26,15,2024-11-01,,Individual,1,No,
-CUST-0147,Company 147,SMB,Starter,Ana Costa,Active,618,618,0,0,13,7,68.0,13,3,4.2,241,36,2024-08-30,,Individual,1,Yes,2024-09-12
-CUST-0148,Company 148,Mid-market,Growth,Diego Alves,Active,1544,1544,0,0,67,38,74.6,13,4,4.9,57,34,2025-05-31,,Agency,1,Yes,2025-06-26
-CUST-0149,Company 149,Mid-market,Growth,Diego Alves,Churned,1598,0,0,0,55,35,63.5,59,0,4.1,253,40,2026-02-01,2026-04-01,Individual,1,No,
-CUST-0150,Company 150,SMB,Starter,Diego Alves,Active,441,387,0,54,20,6,38.1,33,1,3.8,184,44,2025-06-10,,Individual,1,Yes,2025-07-10
-CUST-0151,Company 151,Enterprise,Scale,Bruno Lima,Active,11953,11953,0,0,398,208,52.7,20,0,4.2,354,43,2024-04-20,,Partner,1,Yes,2024-05-06
-CUST-0152,Company 152,Enterprise,Scale,Bruno Lima,Active,9841,9841,0,0,334,228,58.2,25,5,4.2,241,10,2024-10-04,,Individual,1,Yes,2024-10-20
-CUST-0153,Company 153,SMB,Starter,Carla Souza,Active,804,862,58,0,23,22,100.0,18,1,4.7,140,38,2025-08-31,,Individual,1,Yes,2025-09-04
-CUST-0154,Company 154,Mid-market,Growth,Ana Costa,Active,3023,3572,549,0,95,64,76.7,8,4,4.6,38,20,2024-10-18,,Individual,1,Yes,2024-11-17
-CUST-0155,Company 155,SMB,Starter,Diego Alves,Active,875,875,0,0,6,3,64.3,40,1,4.5,220,20,2025-06-01,,Individual,1,Yes,2025-06-04
-CUST-0156,Company 156,Mid-market,Growth,Carla Souza,Active,1173,1410,237,0,40,30,73.7,16,1,5.0,165,32,2025-09-04,,Individual,1,Yes,2025-09-07
-CUST-0157,Company 157,SMB,Starter,Bruno Lima,Active,828,828,0,0,19,13,86.8,25,2,4.4,25,30,2024-10-17,,Multi-account,2,Yes,2024-11-02
-CUST-0158,Company 158,Mid-market,Growth,Carla Souza,Active,1073,1170,97,0,67,44,84.6,47,1,4.8,215,21,2025-07-25,,Individual,1,Yes,2025-07-28
-CUST-0159,Company 159,Mid-market,Growth,Carla Souza,Active,2136,2436,300,0,24,21,81.9,9,0,4.4,82,48,2024-12-17,,Agency,1,Yes,2024-12-24
-CUST-0160,Company 160,Mid-market,Growth,Carla Souza,Active,2445,2834,389,0,27,25,97.4,10,1,5.0,91,10,2024-04-29,,Agency,1,Yes,2024-05-19
-CUST-0161,Company 161,SMB,Starter,Diego Alves,Active,514,514,0,0,15,10,55.1,28,2,4.1,10,6,2024-11-24,,Individual,1,No,
-CUST-0162,Company 162,Enterprise,Scale,Diego Alves,Active,4742,5808,1066,0,277,236,100.0,32,1,5.0,140,3,2025-01-24,,Individual,1,Yes,2025-02-15
-CUST-0163,Company 163,SMB,Starter,Diego Alves,Active,415,415,0,0,8,4,45.5,22,4,4.7,85,40,2024-01-03,,Individual,1,Yes,2024-01-14
-CUST-0164,Company 164,SMB,Starter,Carla Souza,Active,794,968,174,0,8,5,81.0,14,3,4.5,32,21,2026-02-27,,Agency,1,Yes,2026-03-24
-CUST-0165,Company 165,Mid-market,Growth,Carla Souza,Active,1728,1728,0,0,30,19,67.8,32,1,3.6,162,22,2025-04-11,,Individual,1,Yes,2025-05-01
-CUST-0166,Company 166,SMB,Starter,Bruno Lima,Active,486,486,0,0,16,10,67.2,69,1,4.2,86,32,2024-02-02,,Partner,1,Yes,2024-02-11
-CUST-0167,Company 167,Enterprise,Scale,Ana Costa,Active,11348,11348,0,0,82,49,61.8,28,3,4.5,55,22,2026-02-05,,Multi-account,6,Yes,2026-02-27
-CUST-0168,Company 168,Mid-market,Growth,Bruno Lima,Active,1274,1358,84,0,65,56,91.6,11,2,4.9,174,28,2026-01-25,,Partner,1,Yes,2026-02-13
-CUST-0169,Company 169,SMB,Starter,Diego Alves,Active,849,957,108,0,14,11,84.2,12,0,4.6,29,4,2024-01-11,,VIP,1,Yes,2024-02-05
-CUST-0170,Company 170,Enterprise,Scale,Ana Costa,Churned,11328,0,0,0,229,140,72.2,21,0,4.8,362,9,2024-05-24,2024-11-27,Partner,1,Yes,2024-05-31
-CUST-0171,Company 171,SMB,Starter,Carla Souza,Active,659,659,0,0,18,12,68.3,38,3,4.4,176,45,2024-11-17,,Multi-account,3,Yes,2024-11-26
-CUST-0172,Company 172,Mid-market,Growth,Ana Costa,Active,1330,1149,0,181,61,18,28.2,96,4,4.1,364,23,2025-03-23,,Multi-account,6,Yes,2025-04-03
-CUST-0173,Company 173,SMB,Starter,Bruno Lima,Churned,393,0,0,0,19,15,100.0,17,1,4.9,323,9,2025-10-02,2025-12-31,Partner,1,Yes,2025-10-14
-CUST-0174,Company 174,Enterprise,Scale,Ana Costa,Active,5920,5920,0,0,324,153,29.4,31,4,4.4,358,19,2025-01-09,,Partner,1,Yes,2025-02-05
-CUST-0175,Company 175,SMB,Starter,Carla Souza,Active,646,776,130,0,23,18,97.9,50,1,4.8,201,17,2025-06-24,,VIP,1,Yes,2025-07-17
-CUST-0176,Company 176,SMB,Starter,Diego Alves,Active,392,461,69,0,20,15,96.0,24,2,4.9,158,14,2024-01-09,,Individual,1,Yes,2024-01-27
-CUST-0177,Company 177,Mid-market,Growth,Diego Alves,Active,2084,2084,0,0,61,45,68.8,25,1,4.4,265,15,2025-08-04,,Agency,1,Yes,2025-08-22
-CUST-0178,Company 178,Enterprise,Scale,Carla Souza,Active,4481,4481,0,0,237,92,66.7,54,1,3.7,35,36,2026-03-19,,Individual,1,Yes,2026-04-15
-CUST-0179,Company 179,Enterprise,Scale,Ana Costa,Active,8092,8092,0,0,155,60,52.6,31,3,4.5,308,7,2025-04-09,,Multi-account,3,Yes,2025-04-24
-CUST-0180,Company 180,Mid-market,Growth,Carla Souza,Active,954,954,0,0,67,40,78.8,14,2,4.4,123,16,2025-02-05,,Individual,1,Yes,2025-02-14
+CUST-0001,Company 001,SMB,Starter,Carla Souza,Churned,483,0,0,0,15,9,75.6,19,3,4.0,343,6,2026-04-24,2026-06-29,Not informed,1,No,
+CUST-0002,Company 002,Mid-market,Growth,Bruno Lima,Churned,1370,0,0,0,82,26,28.1,39,4,3.8,319,33,2026-04-27,2026-05-27,Individual,1,No,
+CUST-0003,Company 003,SMB,Starter,Diego Alves,Active,446,412,0,34,24,4,12.3,37,3,3.5,312,4,2026-05-11,,Not informed,1,Yes,2026-05-25
+CUST-0004,Company 004,Enterprise,Scale,Diego Alves,Churned,11210,0,0,0,236,103,62.1,42,2,4.0,254,41,2026-04-01,2026-04-12,Not informed,1,No,
+CUST-0005,Company 005,Mid-market,Growth,Carla Souza,Active,3345,3345,0,0,90,62,67.5,38,1,4.4,248,40,2026-05-06,,VIP,1,Yes,2026-06-01
+CUST-0006,Company 006,SMB,Starter,Carla Souza,Churned,326,0,0,0,24,11,50.2,31,3,4.3,198,48,2026-03-18,2026-04-06,Individual,1,No,
+CUST-0007,Company 007,SMB,Starter,Carla Souza,Churned,679,0,0,0,22,8,56.0,22,5,3.8,15,15,2026-05-09,2026-07-21,Not informed,1,No,
+CUST-0008,Company 008,SMB,Starter,Carla Souza,Active,439,439,0,0,14,6,54.1,21,3,4.8,146,9,2026-03-08,,Potential multi-account,12,Yes,2026-03-11
+CUST-0009,Company 009,Mid-market,Growth,Ana Costa,Active,1400,1587,187,0,46,38,83.7,16,3,4.7,269,16,2026-06-15,,Individual,1,Yes,2026-07-03
+CUST-0010,Company 010,Mid-market,Growth,Bruno Lima,Churned,1659,0,0,0,98,38,52.1,33,3,3.3,298,39,2026-03-17,2026-04-06,Partner/Affiliate,1,Yes,2026-03-29
+CUST-0011,Company 011,SMB,Starter,Ana Costa,Active,416,480,64,0,9,8,77.2,29,1,4.3,207,12,2026-04-02,,Individual,1,Yes,2026-04-30
+CUST-0012,Company 012,Enterprise,Scale,Bruno Lima,Churned,7666,0,0,0,211,189,90.5,13,0,4.1,261,43,2026-04-23,2026-06-18,Individual,1,No,
+CUST-0013,Company 013,SMB,Starter,Carla Souza,Churned,897,0,0,0,6,4,81.0,47,3,4.3,14,9,2026-05-11,2026-05-21,Multi-account,1,No,
+CUST-0014,Company 014,Mid-market,Growth,Ana Costa,Churned,2424,0,0,0,83,44,60.1,24,2,4.1,175,4,2026-04-14,2026-04-30,Not informed,1,Yes,2026-04-27
+CUST-0015,Company 015,Enterprise,Scale,Ana Costa,Active,9647,9647,0,0,287,156,46.4,13,2,3.8,189,12,2026-05-09,,Individual,1,Yes,2026-05-18
+CUST-0016,Company 016,Mid-market,Growth,Diego Alves,Active,2182,2450,268,0,26,20,91.0,56,2,5.0,327,37,2026-03-01,,Individual,1,No,
+CUST-0017,Company 017,Mid-market,Growth,Bruno Lima,Active,936,936,0,0,37,16,45.1,29,4,4.2,118,30,2026-05-14,,Mentorship,1,Yes,2026-06-13
+CUST-0018,Company 018,Enterprise,Scale,Ana Costa,Churned,4214,0,0,0,257,98,40.3,44,3,4.1,89,18,2026-02-04,2026-03-27,Not informed,1,Yes,2026-02-19
+CUST-0019,Company 019,SMB,Starter,Carla Souza,Churned,461,0,0,0,15,11,64.6,11,4,4.0,133,32,2026-05-12,2026-07-29,Not informed,1,Yes,2026-06-09
+CUST-0020,Company 020,SMB,Starter,Carla Souza,Churned,446,0,0,0,21,18,100.0,11,3,4.4,68,32,2026-03-01,2026-05-23,Not informed,1,No,
+CUST-0021,Company 021,SMB,Starter,Diego Alves,Churned,804,0,0,0,10,9,72.7,16,2,4.7,207,28,2026-05-17,2026-06-19,Not informed,1,No,
+CUST-0022,Company 022,Mid-market,Growth,Diego Alves,Active,3093,3093,0,0,93,32,48.7,19,6,3.9,237,26,2026-05-17,,Individual,1,No,
+CUST-0023,Company 023,Mid-market,Growth,Diego Alves,Active,3120,3120,0,0,55,36,58.0,23,4,3.6,294,6,2026-07-04,,Individual,1,Yes,2026-07-13
+CUST-0024,Company 024,Mid-market,Growth,Carla Souza,Active,2557,2247,0,310,85,21,30.4,29,3,3.5,355,14,2026-02-25,,Partner/Affiliate,1,No,
+CUST-0025,Company 025,Enterprise,Scale,Bruno Lima,Churned,8227,0,0,0,156,63,32.8,49,3,3.9,33,26,2026-03-12,2026-03-31,Individual,1,Yes,2026-03-25
+CUST-0026,Company 026,SMB,Starter,Diego Alves,Churned,689,0,0,0,5,3,80.3,9,2,4.3,95,8,2026-02-09,2026-03-26,Mentorship,1,Yes,2026-02-15
+CUST-0027,Company 027,Mid-market,Growth,Bruno Lima,Churned,1957,0,0,0,24,15,79.9,32,1,4.1,114,24,2026-04-07,2026-06-10,Not informed,1,No,
+CUST-0028,Company 028,SMB,Starter,Bruno Lima,Churned,702,0,0,0,12,2,32.9,50,2,3.3,96,7,2026-02-28,2026-03-30,Not informed,1,No,
+CUST-0029,Company 029,SMB,Starter,Diego Alves,Churned,776,0,0,0,24,16,55.3,63,0,4.3,303,38,2026-04-08,2026-05-21,Mentorship,1,No,
+CUST-0030,Company 030,Mid-market,Growth,Diego Alves,Active,2883,2883,0,0,23,9,57.4,39,1,4.0,57,6,2026-03-27,,Agency,4,Yes,2026-04-09
+CUST-0031,Company 031,Enterprise,Scale,Bruno Lima,Churned,8717,0,0,0,198,69,42.8,22,3,4.0,17,6,2026-05-22,2026-07-29,Mentorship,1,Yes,2026-06-12
+CUST-0032,Company 032,Mid-market,Growth,Carla Souza,Active,1051,1051,0,0,28,15,51.2,22,1,4.7,315,31,2026-06-05,,Mentorship,1,Yes,2026-06-25
+CUST-0033,Company 033,SMB,Starter,Diego Alves,Churned,734,0,0,0,23,12,65.5,28,2,4.2,352,12,2026-05-15,2026-06-24,Not informed,1,Unknown,
+CUST-0034,Company 034,Mid-market,Growth,Diego Alves,Active,1853,2078,225,0,74,73,96.7,41,0,4.6,88,18,2026-06-05,,Individual,1,Yes,2026-06-24
+CUST-0035,Company 035,SMB,Starter,Ana Costa,Active,746,746,0,0,20,12,66.9,12,2,4.4,126,16,2026-02-03,,Internal,1,Yes,2026-02-17
+CUST-0036,Company 036,Enterprise,Scale,Carla Souza,Active,8085,8085,0,0,308,136,50.5,36,3,4.2,187,12,2026-05-06,,Agency,3,Yes,2026-05-10
+CUST-0037,Company 037,Mid-market,Growth,Ana Costa,Active,3191,3983,792,0,72,53,82.5,8,2,4.4,195,37,2026-06-04,,Potential multi-account,3,No,
+CUST-0038,Company 038,SMB,Starter,Diego Alves,Active,503,503,0,0,20,12,79.1,18,2,4.6,362,34,2026-06-28,,VIP,1,No,
+CUST-0039,Company 039,SMB,Starter,Ana Costa,Active,858,933,75,0,5,3,89.7,10,0,4.9,152,13,2026-07-04,,Mentorship,1,No,
+CUST-0040,Company 040,SMB,Starter,Diego Alves,Churned,806,0,0,0,22,13,30.8,19,2,4.6,11,34,2026-05-25,2026-07-13,Not informed,1,No,
+CUST-0041,Company 041,Enterprise,Scale,Ana Costa,Active,6314,7330,1016,0,316,274,77.6,33,3,5.0,158,35,2026-07-21,,Internal,1,No,
+CUST-0042,Company 042,Mid-market,Growth,Bruno Lima,Active,2154,1828,0,326,79,26,35.7,27,3,3.5,206,27,2026-06-07,,Not informed,1,Yes,2026-06-27
+CUST-0043,Company 043,Mid-market,Growth,Ana Costa,Active,2281,2281,0,0,51,33,56.8,15,2,4.4,192,29,2026-06-01,,Individual,1,Yes,2026-06-25
+CUST-0044,Company 044,Mid-market,Growth,Diego Alves,Active,2898,2898,0,0,84,51,66.1,16,1,4.3,190,45,2026-01-12,,Individual,1,Yes,2026-01-30
+CUST-0045,Company 045,Mid-market,Growth,Bruno Lima,Churned,2691,0,0,0,50,17,46.4,21,4,3.7,338,23,2026-02-27,2026-05-07,Not informed,1,No,
+CUST-0046,Company 046,SMB,Starter,Carla Souza,Churned,811,0,0,0,5,2,51.7,36,1,4.0,296,20,2026-03-24,2026-04-16,Individual,1,Yes,2026-04-05
+CUST-0047,Company 047,Enterprise,Scale,Ana Costa,Churned,6643,0,0,0,370,100,30.3,34,2,3.1,97,27,2026-02-15,2026-03-16,Not informed,1,No,
+CUST-0048,Company 048,SMB,Starter,Bruno Lima,Active,602,602,0,0,9,5,55.4,30,5,4.3,134,41,2026-06-26,,Potential multi-account,2,Yes,2026-07-08
+CUST-0049,Company 049,Mid-market,Growth,Diego Alves,Churned,2020,0,0,0,28,17,65.4,11,4,4.1,246,35,2026-03-03,2026-05-18,Agency,1,Yes,2026-03-16
+CUST-0050,Company 050,Mid-market,Growth,Diego Alves,Churned,3264,0,0,0,69,52,97.4,20,0,4.6,154,5,2026-04-24,2026-05-05,Individual,1,Yes,2026-05-03
+CUST-0051,Company 051,Mid-market,Growth,Ana Costa,Active,1692,1692,0,0,38,26,72.0,7,1,4.2,160,23,2026-05-21,,Internal,1,Yes,2026-06-18
+CUST-0052,Company 052,Enterprise,Scale,Bruno Lima,Churned,8490,0,0,0,354,171,62.5,46,4,3.8,67,36,2026-06-12,2026-07-04,Individual,1,Yes,2026-07-08
+CUST-0053,Company 053,SMB,Starter,Bruno Lima,Churned,372,0,0,0,13,6,41.3,34,3,4.2,98,12,2026-07-19,2026-08-01,Not informed,1,No,
+CUST-0054,Company 054,Mid-market,Growth,Carla Souza,Churned,3110,0,0,0,20,7,54.2,30,4,3.8,272,48,2026-05-10,2026-07-23,Individual,1,Yes,2026-06-04
+CUST-0055,Company 055,SMB,Starter,Carla Souza,Churned,530,0,0,0,24,13,66.7,10,3,4.4,309,39,2026-04-22,2026-04-30,Individual,1,No,
+CUST-0056,Company 056,Mid-market,Growth,Ana Costa,Active,1785,1785,0,0,61,38,70.7,14,3,5.0,288,41,2026-07-23,,Individual,1,Yes,2026-08-16
+CUST-0057,Company 057,SMB,Starter,Diego Alves,Active,649,695,46,0,10,8,92.7,7,1,4.8,117,5,2026-06-27,,Individual,1,No,
+CUST-0058,Company 058,SMB,Starter,Ana Costa,Churned,599,0,0,0,18,12,53.9,22,0,4.5,56,29,2026-04-23,2026-05-12,Individual,1,No,
+CUST-0059,Company 059,SMB,Starter,Bruno Lima,Churned,808,0,0,0,15,6,59.8,34,2,3.6,64,26,2026-02-19,2026-03-17,Not informed,1,No,
+CUST-0060,Company 060,SMB,Starter,Diego Alves,Active,618,618,0,0,5,3,69.8,27,2,4.0,148,31,2026-02-21,,Individual,1,Yes,2026-03-03
+CUST-0061,Company 061,SMB,Starter,Carla Souza,Active,610,610,0,0,20,13,60.4,53,4,4.8,192,41,2026-06-08,,Individual,1,Yes,2026-06-28
+CUST-0062,Company 062,Mid-market,Growth,Bruno Lima,Active,1172,1259,87,0,52,40,74.5,21,2,4.2,327,18,2026-03-27,,Individual,1,No,
+CUST-0063,Company 063,Mid-market,Growth,Diego Alves,Active,957,957,0,0,75,43,52.3,47,2,3.8,329,27,2026-06-17,,Individual,1,No,
+CUST-0064,Company 064,SMB,Starter,Bruno Lima,Active,539,539,0,0,22,11,68.1,22,2,4.2,7,33,2026-01-10,,Individual,1,Yes,2026-01-30
+CUST-0065,Company 065,SMB,Starter,Carla Souza,Active,898,898,0,0,17,11,62.6,33,1,4.2,261,37,2026-05-15,,Individual,1,Yes,2026-05-26
+CUST-0066,Company 066,SMB,Starter,Ana Costa,Active,850,850,0,0,18,11,73.0,22,2,4.0,114,38,2026-06-04,,Individual,1,Yes,2026-06-28
+CUST-0067,Company 067,Mid-market,Growth,Ana Costa,Churned,2535,0,0,0,40,27,63.3,29,1,4.1,78,17,2026-03-05,2026-05-01,Individual,1,No,
+CUST-0068,Company 068,SMB,Starter,Bruno Lima,Churned,678,0,0,0,9,6,77.9,22,3,4.8,206,48,2026-03-01,2026-03-13,Not informed,1,No,
+CUST-0069,Company 069,SMB,Starter,Carla Souza,Active,534,472,0,62,13,3,31.3,25,0,3.4,19,2,,,Agency,1,Yes,
+CUST-0070,Company 070,SMB,Starter,Diego Alves,Churned,406,0,0,0,22,10,81.0,30,2,3.7,126,25,2026-04-13,2026-06-02,Not informed,1,Yes,2026-04-24
+CUST-0071,Company 071,Mid-market,Growth,Bruno Lima,Active,922,922,0,0,61,39,50.1,33,3,4.6,205,30,2026-07-01,,Not informed,1,No,
+CUST-0072,Company 072,SMB,Starter,Diego Alves,Churned,503,0,0,0,11,9,100.0,29,0,4.9,104,4,2026-02-12,2026-05-02,Not informed,1,No,
+CUST-0073,Company 073,Mid-market,Growth,Carla Souza,Churned,1722,0,0,0,82,54,93.9,23,2,4.4,220,23,2026-03-21,2026-04-23,Mentorship,1,Yes,2026-04-07
+CUST-0074,Company 074,Mid-market,Growth,Ana Costa,Active,1398,1398,0,0,88,54,52.5,10,1,3.6,172,30,2026-02-21,,Individual,1,Yes,2026-02-25
+CUST-0075,Company 075,Mid-market,Growth,Carla Souza,Churned,1573,0,0,0,92,87,100.0,24,1,4.5,293,30,2026-05-27,2026-08-01,Individual,1,Yes,2026-06-25
+CUST-0076,Company 076,Mid-market,Growth,Carla Souza,Churned,964,0,0,0,43,28,79.0,13,3,4.3,72,7,2026-03-21,2026-06-13,Potential multi-account,1,No,
+CUST-0077,Company 077,Mid-market,Growth,Bruno Lima,Active,2480,3078,598,0,76,56,87.9,23,3,4.9,27,15,,,VIP,1,Yes,
+CUST-0078,Company 078,SMB,Starter,Bruno Lima,Active,856,999,143,0,16,10,83.8,24,2,4.2,197,13,2026-04-07,,Individual,1,Yes,2026-05-05
+CUST-0079,Company 079,Mid-market,Growth,Bruno Lima,Active,2696,3189,493,0,55,52,90.3,4,2,4.7,99,32,2026-06-01,,Individual,1,Yes,2026-06-24
+CUST-0080,Company 080,Mid-market,Growth,Carla Souza,Churned,2065,0,0,0,51,31,65.9,24,3,4.6,260,17,2026-02-14,2026-03-13,Individual,1,No,
+CUST-0081,Company 081,Mid-market,Growth,Carla Souza,Active,1992,2392,400,0,29,27,92.8,6,2,3.9,40,28,2026-05-25,,Not informed,1,Yes,2026-06-16
+CUST-0082,Company 082,Mid-market,Growth,Bruno Lima,Churned,1699,0,0,0,41,18,61.0,13,0,4.3,213,36,2026-04-04,2026-04-25,Not informed,1,No,
+CUST-0083,Company 083,SMB,Starter,Bruno Lima,Churned,385,0,0,0,15,12,84.4,8,2,4.2,362,39,2026-03-17,2026-05-02,Not informed,1,No,
+CUST-0084,Company 084,Mid-market,Growth,Bruno Lima,Active,2456,2456,0,0,90,57,64.0,22,0,4.5,40,10,2026-06-12,,Internal,1,Yes,2026-07-09
+CUST-0085,Company 085,Mid-market,Growth,Bruno Lima,Churned,2372,0,0,0,89,54,79.8,21,4,4.5,115,44,2026-04-19,2026-05-12,VIP,1,Yes,2026-05-11
+CUST-0086,Company 086,Enterprise,Scale,Bruno Lima,Active,3562,3562,0,0,140,80,63.8,21,3,4.5,310,9,2026-06-19,,Partner/Affiliate,1,Yes,2026-06-25
+CUST-0087,Company 087,Enterprise,Scale,Bruno Lima,Active,7031,8186,1155,0,297,251,95.2,26,2,4.9,198,3,2026-04-05,,Partner/Affiliate,1,Yes,2026-05-01
+CUST-0088,Company 088,Mid-market,Growth,Carla Souza,Active,1622,1719,97,0,26,19,85.0,19,2,3.7,69,4,2026-04-01,,Individual,1,No,
+CUST-0089,Company 089,Mid-market,Growth,Ana Costa,Churned,1342,0,0,0,74,58,69.9,28,0,4.1,83,11,2026-06-04,2026-08-01,Individual,1,No,
+CUST-0090,Company 090,Mid-market,Growth,Carla Souza,Churned,2727,0,0,0,47,32,55.3,36,1,4.3,281,43,2026-02-09,2026-04-25,Individual,1,Yes,2026-02-16
+CUST-0091,Company 091,SMB,Starter,Ana Costa,Active,615,549,0,66,13,4,24.2,82,3,3.6,316,11,2026-06-20,,Individual,1,Yes,2026-07-07
+CUST-0092,Company 092,Enterprise,Scale,Bruno Lima,Active,8887,10499,1612,0,309,221,68.9,19,1,4.8,136,34,2026-05-28,,Partner/Affiliate,1,Yes,2026-06-22
+CUST-0093,Company 093,Mid-market,Growth,Diego Alves,Active,2755,2755,0,0,53,22,45.6,49,4,4.2,177,21,2026-03-11,,Partner/Affiliate,1,No,
+CUST-0094,Company 094,SMB,Starter,Diego Alves,Active,889,1047,158,0,21,19,85.8,22,2,4.9,288,3,2026-01-19,,Individual,1,No,
+CUST-0095,Company 095,SMB,Starter,Carla Souza,Churned,781,0,0,0,15,11,79.7,24,0,4.5,70,22,2026-03-06,2026-03-26,Not informed,1,Yes,2026-03-21
+CUST-0096,Company 096,Enterprise,Scale,Carla Souza,Active,8773,8773,0,0,399,253,49.8,21,1,3.8,81,3,2026-07-24,,Individual,1,Yes,2026-08-15
+CUST-0097,Company 097,SMB,Starter,Ana Costa,Active,827,827,0,0,17,8,35.4,31,2,3.8,285,24,2026-04-21,,VIP,1,Yes,2026-04-26
+CUST-0098,Company 098,SMB,Starter,Bruno Lima,Active,586,586,0,0,10,4,53.7,27,7,4.0,74,28,2026-07-13,,Individual,1,Yes,2026-08-02
+CUST-0099,Company 099,SMB,Starter,Carla Souza,Churned,890,0,0,0,20,13,64.1,39,2,4.0,283,26,2026-04-13,2026-05-28,Multi-account,1,No,
+CUST-0100,Company 100,SMB,Starter,Diego Alves,Churned,756,0,0,0,13,10,75.2,16,1,4.6,185,15,2026-03-04,2026-04-06,Not informed,1,Unknown,
+CUST-0101,Company 101,SMB,Starter,Carla Souza,Active,690,574,0,116,15,4,17.4,21,2,4.0,362,38,2026-05-28,,Individual,1,No,
+CUST-0102,Company 102,Mid-market,Growth,Diego Alves,Active,3248,3248,0,0,30,18,80.7,18,0,4.4,18,30,2026-06-22,,Multi-account,2,Yes,2026-07-22
+CUST-0103,Company 103,SMB,Starter,Bruno Lima,Active,609,547,0,62,7,2,32.3,26,2,2.6,346,13,2026-06-13,,Individual,1,Yes,2026-07-08
+CUST-0104,Company 104,Enterprise,Scale,Ana Costa,Churned,9625,0,0,0,263,132,57.1,21,1,3.6,87,22,2026-03-28,2026-06-20,Not informed,1,Yes,2026-04-20
+CUST-0105,Company 105,Enterprise,Scale,Ana Costa,Churned,5920,0,0,0,139,80,90.2,22,2,5.0,19,7,2026-05-22,2026-08-01,Individual,1,No,
+CUST-0106,Company 106,SMB,Starter,Carla Souza,Active,877,787,0,90,24,8,49.0,26,1,3.5,266,45,2026-07-21,,Internal,1,Yes,2026-08-03
+CUST-0107,Company 107,SMB,Starter,Carla Souza,Churned,674,0,0,0,22,10,42.6,28,0,3.2,198,37,2026-02-09,2026-05-10,Not informed,1,No,
+CUST-0108,Company 108,Mid-market,Growth,Bruno Lima,Churned,2933,0,0,0,76,39,53.6,20,4,4.6,307,15,2026-06-26,2026-08-01,Not informed,1,No,
+CUST-0109,Company 109,SMB,Starter,Diego Alves,Active,576,576,0,0,19,9,50.3,33,5,4.1,45,33,2026-01-01,,Internal,1,Yes,2026-01-10
+CUST-0110,Company 110,SMB,Starter,Carla Souza,Active,820,820,0,0,16,11,69.7,74,3,4.7,36,33,2026-05-08,,VIP,1,No,
+CUST-0111,Company 111,Enterprise,Scale,Bruno Lima,Active,4130,4616,486,0,99,67,83.2,23,1,4.7,210,30,2026-02-11,,Individual,1,Yes,2026-03-12
+CUST-0112,Company 112,Enterprise,Scale,Ana Costa,Active,4469,5091,622,0,205,153,74.9,16,2,4.7,323,4,2026-04-24,,Potential multi-account,4,Yes,2026-04-29
+CUST-0113,Company 113,Mid-market,Growth,Carla Souza,Active,2218,2218,0,0,59,34,75.2,10,1,4.3,152,43,2026-04-04,,Agency,4,Yes,2026-04-21
+CUST-0114,Company 114,SMB,Starter,Carla Souza,Active,739,882,143,0,23,18,77.7,57,4,4.8,293,46,2026-07-03,,Internal,1,No,
+CUST-0115,Company 115,Mid-market,Growth,Ana Costa,Churned,3003,0,0,0,37,22,90.8,27,1,5.0,332,47,2026-03-16,2026-05-11,Not informed,1,Yes,2026-03-25
+CUST-0116,Company 116,Mid-market,Growth,Bruno Lima,Churned,2044,0,0,0,59,38,65.5,23,0,4.6,319,48,2026-03-14,2026-06-03,Not informed,1,No,
+CUST-0117,Company 117,SMB,Starter,Bruno Lima,Churned,689,0,0,0,11,3,54.1,16,2,3.2,189,45,2026-04-21,2026-06-15,Individual,1,No,
+CUST-0118,Company 118,Mid-market,Growth,Carla Souza,Churned,2338,0,0,0,30,18,65.5,24,3,4.4,257,36,2026-05-17,2026-08-01,Not informed,1,No,
+CUST-0119,Company 119,SMB,Starter,Ana Costa,Active,876,876,0,0,7,3,75.3,26,2,4.7,195,4,2026-05-02,,Individual,1,Yes,2026-05-07
+CUST-0120,Company 120,SMB,Starter,Diego Alves,Churned,692,0,0,0,12,4,32.4,25,2,4.2,249,23,2026-03-05,2026-04-11,Not informed,1,No,
+CUST-0121,Company 121,Mid-market,Growth,Bruno Lima,Churned,1983,0,0,0,26,19,71.1,10,1,4.4,210,13,2026-03-26,2026-04-10,Agency,1,Yes,2026-04-14
+CUST-0122,Company 122,SMB,Starter,Bruno Lima,Churned,881,0,0,0,6,3,67.3,13,3,4.6,195,12,2026-03-27,2026-06-22,Not informed,1,Yes,2026-04-10
+CUST-0123,Company 123,SMB,Starter,Ana Costa,Active,364,364,0,0,12,5,66.0,63,4,4.5,163,41,2026-06-06,,Individual,1,Yes,2026-07-02
+CUST-0124,Company 124,Enterprise,Scale,Diego Alves,Active,11868,12712,844,0,144,115,93.7,19,1,5.0,241,40,2026-01-22,,Individual,1,Yes,2026-01-31
+CUST-0125,Company 125,Enterprise,Scale,Ana Costa,Churned,4809,0,0,0,257,200,74.9,14,2,4.4,276,26,2026-01-03,2026-03-31,Not informed,1,Yes,2026-01-07
+CUST-0126,Company 126,Mid-market,Growth,Diego Alves,Churned,1649,0,0,0,21,5,16.6,34,3,3.4,336,36,2026-04-18,2026-06-09,Not informed,1,Yes,2026-04-26
+CUST-0127,Company 127,Enterprise,Scale,Bruno Lima,Active,10482,11809,1327,0,176,174,78.5,18,0,4.6,227,8,2026-04-25,,VIP,1,Yes,2026-04-30
+CUST-0128,Company 128,Enterprise,Scale,Diego Alves,Active,9736,11727,1991,0,225,172,67.1,8,2,4.4,43,12,2026-06-09,,Agency,2,Yes,2026-07-05
+CUST-0129,Company 129,SMB,Starter,Ana Costa,Churned,882,0,0,0,24,15,62.3,40,2,3.9,217,42,2026-02-15,2026-05-03,Individual,1,Yes,2026-03-03
+CUST-0130,Company 130,Mid-market,Growth,Ana Costa,Active,2849,2849,0,0,70,50,76.1,22,2,3.3,120,23,2026-07-16,,VIP,1,Yes,2026-07-26
+CUST-0131,Company 131,SMB,Starter,Diego Alves,Active,682,682,0,0,22,7,39.9,32,2,3.7,16,27,2026-06-25,,Individual,1,Yes,2026-07-10
+CUST-0132,Company 132,SMB,Starter,Diego Alves,Active,507,507,0,0,11,5,28.2,54,2,4.1,33,23,2026-07-26,,Individual,1,No,
+CUST-0133,Company 133,Mid-market,Growth,Carla Souza,Churned,912,0,0,0,55,27,45.1,18,2,3.8,219,11,2026-04-09,2026-06-24,Individual,1,No,
+CUST-0134,Company 134,Mid-market,Growth,Ana Costa,Active,1222,1222,0,0,53,38,72.5,15,3,5.0,346,40,2026-05-09,,Individual,1,Yes,2026-06-04
+CUST-0135,Company 135,Mid-market,Growth,Diego Alves,Churned,1674,0,0,0,90,51,80.8,30,3,4.2,188,37,2026-05-04,2026-06-25,Individual,1,No,
+CUST-0136,Company 136,SMB,Starter,Bruno Lima,Active,324,324,0,0,24,16,60.5,36,2,4.9,166,34,2026-05-22,,Individual,1,Yes,2026-06-19

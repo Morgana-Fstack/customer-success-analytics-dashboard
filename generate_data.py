@@ -9,7 +9,99 @@ OUTPUT_DIR = Path(__file__).parent / "data"
 RNG = np.random.default_rng(42)
 
 
-def build_customers(size: int = 180) -> pd.DataFrame:
+def _repeat_counts(counts: dict[str, int]) -> list[str]:
+    return [label for label, count in counts.items() for _ in range(count)]
+
+
+def build_cs_operations_data(size: int) -> dict[str, object]:
+    """Build an anonymized operational portfolio based on the reference CS workbook."""
+    if size != 136:
+        raise ValueError("The CS operations reference portfolio contains 136 customers.")
+
+    status = np.array(["Active"] * 72 + ["Churned"] * 64)
+
+    active_types = _repeat_counts(
+        {
+            "Not informed": 4,
+            "Agency": 5,
+            "Individual": 36,
+            "Internal": 7,
+            "Mentorship": 3,
+            "Multi-account": 1,
+            "Partner/Affiliate": 5,
+            "Potential multi-account": 4,
+            "VIP": 7,
+        }
+    )
+    churned_types = _repeat_counts(
+        {
+            "Not informed": 33,
+            "Agency": 2,
+            "Individual": 20,
+            "Mentorship": 4,
+            "Multi-account": 2,
+            "Partner/Affiliate": 1,
+            "Potential multi-account": 1,
+            "VIP": 1,
+        }
+    )
+    RNG.shuffle(active_types)
+    RNG.shuffle(churned_types)
+    customer_type = np.array(active_types + churned_types)
+
+    active_onboarding = ["Yes"] * 54 + ["No"] * 18
+    churned_onboarding = ["Yes"] * 25 + ["No"] * 37 + ["Unknown"] * 2
+    RNG.shuffle(active_onboarding)
+    RNG.shuffle(churned_onboarding)
+    onboarding_completed = np.array(active_onboarding + churned_onboarding)
+
+    cohorts = [(1, 6, 1), (2, 16, 11), (3, 24, 19), (4, 25, 17), (5, 27, 12), (6, 24, 3), (7, 12, 1)]
+
+    def cohort_dates(churned: bool) -> list[pd.Timestamp]:
+        dates: list[pd.Timestamp] = []
+        for month, total, churn_count in cohorts:
+            count = churn_count if churned else total - churn_count
+            start = pd.Timestamp(year=2026, month=month, day=1)
+            dates.extend(start + pd.to_timedelta(RNG.integers(0, 28, count), unit="D"))
+        return dates
+
+    active_entry_dates = cohort_dates(churned=False) + [pd.NaT, pd.NaT]
+    churned_entry_dates = cohort_dates(churned=True)
+    entry_date = pd.Series(active_entry_dates + churned_entry_dates, dtype="datetime64[ns]")
+
+    cancellation_date = pd.Series(pd.NaT, index=range(size), dtype="datetime64[ns]")
+    churned_mask = status == "Churned"
+    cancellation_date.loc[churned_mask] = (
+        entry_date[churned_mask] + pd.to_timedelta(RNG.integers(7, 91, churned_mask.sum()), unit="D")
+    ).clip(upper=pd.Timestamp("2026-08-01"))
+
+    onboarding_date = pd.Series(pd.NaT, index=range(size), dtype="datetime64[ns]")
+    completed_mask = (onboarding_completed == "Yes") & entry_date.notna().to_numpy()
+    onboarding_date.loc[completed_mask] = entry_date[completed_mask] + pd.to_timedelta(
+        RNG.integers(3, 31, completed_mask.sum()), unit="D"
+    )
+
+    accounts = np.ones(size, dtype=int)
+    account_candidates = np.flatnonzero(
+        np.isin(customer_type, ["Agency", "Multi-account", "Potential multi-account"])
+    )
+    for index, increment in zip(account_candidates, [11, 3, 3, 3, 2, 2, 1, 1, 1], strict=False):
+        accounts[index] += increment
+
+    permutation = RNG.permutation(size)
+    return {
+        "status": status[permutation],
+        "customer_type": customer_type[permutation],
+        "accounts": accounts[permutation],
+        "onboarding_completed": onboarding_completed[permutation],
+        "entry_date": entry_date.iloc[permutation].reset_index(drop=True),
+        "cancellation_date": cancellation_date.iloc[permutation].reset_index(drop=True),
+        "onboarding_date": onboarding_date.iloc[permutation].reset_index(drop=True),
+    }
+
+
+def build_customers(size: int = 136) -> pd.DataFrame:
+    operations = build_cs_operations_data(size)
     plans = RNG.choice(["Starter", "Growth", "Scale"], size=size, p=[0.43, 0.39, 0.18])
     segments = np.select([plans == "Starter", plans == "Growth"], ["SMB", "Mid-market"], default="Enterprise")
     starting_mrr = np.array(
@@ -34,15 +126,7 @@ def build_customers(size: int = 180) -> pd.DataFrame:
     last_contact = np.maximum(1, (RNG.gamma(2.2, 9, size) + (1 - adoption) * 24).astype(int))
     tickets = RNG.poisson(1.4 + (1 - adoption) * 2.4, size)
     csat = np.clip(3.1 + adoption * 1.8 + RNG.normal(0, 0.35, size), 1, 5).round(1)
-    onboarding_completed = RNG.random(size) < (0.62 + adoption * 0.32)
-    churn_probability = (
-        0.03
-        + (1 - adoption) * 0.12
-        + (~onboarding_completed) * 0.35
-        + (last_contact > 35) * 0.10
-        + (csat < 3.6) * 0.08
-    )
-    status = np.where(RNG.random(size) < churn_probability, "Churned", "Active")
+    status = operations["status"]
     expansion = np.where(
         (adoption > 0.78) & (status == "Active"),
         (starting_mrr * RNG.uniform(0.05, 0.25, size)).astype(int),
@@ -54,23 +138,6 @@ def build_customers(size: int = 180) -> pd.DataFrame:
         0,
     )
     mrr = np.where(status == "Active", starting_mrr + expansion - contraction, 0)
-    entry_date = pd.to_datetime("2024-01-01") + pd.to_timedelta(RNG.integers(0, 883, size), unit="D")
-    cancellation_delay = pd.to_timedelta(RNG.integers(45, 540, size), unit="D")
-    cancellation_date = pd.Series(pd.NaT, index=range(size), dtype="datetime64[ns]")
-    cancellation_date.loc[status == "Churned"] = (
-        pd.Series(entry_date)[status == "Churned"] + cancellation_delay[status == "Churned"]
-    ).clip(upper=pd.Timestamp("2026-08-01"))
-    onboarding_date = pd.Series(pd.NaT, index=range(size), dtype="datetime64[ns]")
-    onboarding_date.loc[onboarding_completed] = (
-        pd.Series(entry_date)[onboarding_completed]
-        + pd.to_timedelta(RNG.integers(3, 31, onboarding_completed.sum()), unit="D")
-    )
-    customer_type = RNG.choice(
-        ["Individual", "Agency", "Partner", "Multi-account", "VIP"],
-        size=size,
-        p=[0.55, 0.16, 0.10, 0.12, 0.07],
-    )
-    accounts = np.where(customer_type == "Multi-account", RNG.integers(2, 8, size), 1)
 
     return pd.DataFrame(
         {
@@ -92,12 +159,12 @@ def build_customers(size: int = 180) -> pd.DataFrame:
             "csat_score": csat,
             "renewal_days": RNG.integers(7, 366, size),
             "tenure_months": RNG.integers(2, 49, size),
-            "entry_date": pd.Series(entry_date).dt.date.astype(str),
-            "cancellation_date": cancellation_date.dt.date.astype("string").fillna(""),
-            "customer_type": customer_type,
-            "accounts": accounts,
-            "onboarding_completed": np.where(onboarding_completed, "Yes", "No"),
-            "onboarding_date": onboarding_date.dt.date.astype("string").fillna(""),
+            "entry_date": operations["entry_date"].dt.date.astype("string").fillna(""),
+            "cancellation_date": operations["cancellation_date"].dt.date.astype("string").fillna(""),
+            "customer_type": operations["customer_type"],
+            "accounts": operations["accounts"],
+            "onboarding_completed": operations["onboarding_completed"],
+            "onboarding_date": operations["onboarding_date"].dt.date.astype("string").fillna(""),
         }
     )
 
