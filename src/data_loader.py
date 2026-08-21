@@ -61,6 +61,18 @@ def customer_template() -> pd.DataFrame:
     }], columns=REQUIRED_CUSTOMER_COLUMNS)
 
 
+def _normalize_renewal_days(values: pd.Series) -> pd.Series:
+    numeric = pd.to_numeric(values, errors="coerce")
+    unresolved = numeric.isna() & values.notna() & values.astype(str).str.strip().ne("")
+    if unresolved.any():
+        parsed_dates = pd.to_datetime(values[unresolved], errors="coerce", dayfirst=True)
+        if parsed_dates.isna().any():
+            raise CustomerDataError("invalid_numeric", "renewal_days")
+        today = pd.Timestamp.today().normalize()
+        numeric.loc[unresolved] = (parsed_dates.dt.normalize() - today).dt.days.clip(lower=0)
+    return numeric
+
+
 def prepare_uploaded_customers(data: pd.DataFrame) -> pd.DataFrame:
     if data.empty:
         raise CustomerDataError("empty")
@@ -96,7 +108,7 @@ def prepare_uploaded_customers(data: pd.DataFrame) -> pd.DataFrame:
         result.loc[empty, column] = 0
 
     for column in NUMERIC_CUSTOMER_COLUMNS:
-        converted = pd.to_numeric(result[column], errors="coerce")
+        converted = _normalize_renewal_days(result[column]) if column == "renewal_days" else pd.to_numeric(result[column], errors="coerce")
         if column in REQUIRED_NUMERIC_VALUES and converted.isna().any():
             raise CustomerDataError("invalid_numeric", column)
         result[column] = converted
