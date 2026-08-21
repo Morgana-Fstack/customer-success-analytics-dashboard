@@ -3,13 +3,10 @@ import pandas as pd
 from src.metrics import (
     add_health_fields,
     calculate_health_score,
-    churn_breakdown,
-    churn_by_cohort,
-    cs_operations_kpis,
     filter_customers,
-    has_cs_operations_data,
     portfolio_kpis,
 )
+from src.operations import churn_breakdown, churn_by_cohort, cs_operations_kpis, has_cs_operations_data
 
 
 def sample_customers() -> pd.DataFrame:

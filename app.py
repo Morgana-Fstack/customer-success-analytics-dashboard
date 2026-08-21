@@ -9,14 +9,12 @@ import plotly.graph_objects as go
 import streamlit as st
 
 from src.data_loader import CustomerDataError, customer_template, prepare_uploaded_customers
-from src.metrics import (
-    add_health_fields,
+from src.metrics import add_health_fields, filter_customers, portfolio_kpis
+from src.operations import (
     churn_breakdown,
     churn_by_cohort,
     cs_operations_kpis,
-    filter_customers,
     has_cs_operations_data,
-    portfolio_kpis,
 )
 
 ROOT = Path(__file__).parent
