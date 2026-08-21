@@ -12,7 +12,6 @@ from src.data_loader import (
 
 def test_template_matches_official_source_schema() -> None:
     template = customer_template()
-
     assert list(template.columns) == REQUIRED_CUSTOMER_COLUMNS
     assert len(template.columns) == 17
     assert not set(OPTIONAL_CS_COLUMNS).intersection(template.columns)
@@ -22,6 +21,24 @@ def test_template_is_a_valid_upload() -> None:
     result = prepare_uploaded_customers(customer_template())
     assert len(result) == 1
     assert result.iloc[0]["customer_id"] == "CUST-0001"
+
+
+def test_sparse_production_style_row_is_accepted() -> None:
+    data = customer_template()
+    data.loc[0, "plan"] = None
+    data.loc[0, "csm"] = None
+    data.loc[0, "expansion_mrr"] = None
+    data.loc[0, "contraction_mrr"] = None
+    for column in ["feature_adoption_pct", "days_since_last_contact", "open_tickets", "csat_score"]:
+        data.loc[0, column] = None
+
+    result = prepare_uploaded_customers(data)
+
+    assert result.iloc[0]["plan"] == "Não informado"
+    assert result.iloc[0]["csm"] == "Não informado"
+    assert result.iloc[0]["expansion_mrr"] == 0
+    assert result.iloc[0]["contraction_mrr"] == 0
+    assert pd.isna(result.iloc[0]["csat_score"])
 
 
 def test_portuguese_status_is_normalized() -> None:
@@ -38,13 +55,10 @@ def test_operational_statuses_are_normalized() -> None:
         "Inativo": "Churned",
         "Mensal": "Active",
     }
-
     for raw_status, normalized_status in expected.items():
         data = customer_template()
         data.loc[0, "status"] = raw_status
-
         result = prepare_uploaded_customers(data)
-
         assert result.iloc[0]["status"] == normalized_status
 
 
@@ -66,9 +80,7 @@ def test_empty_revenue_movements_default_to_zero() -> None:
     data = customer_template()
     data["expansion_mrr"] = None
     data["contraction_mrr"] = "  "
-
     result = prepare_uploaded_customers(data)
-
     assert result.iloc[0]["expansion_mrr"] == 0
     assert result.iloc[0]["contraction_mrr"] == 0
 
@@ -94,9 +106,7 @@ def test_optional_legacy_fields_remain_supported() -> None:
         onboarding_completed="Sim",
         onboarding_date="2026-01-27",
     )
-
     result = prepare_uploaded_customers(data)
-
     assert result.iloc[0]["onboarding_completed"] == "Yes"
     assert result.iloc[0]["accounts"] == 1
     assert pd.api.types.is_datetime64_any_dtype(result["entry_date"])
