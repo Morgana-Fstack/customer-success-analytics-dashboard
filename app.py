@@ -371,9 +371,12 @@ st.markdown(
 
 @st.cache_data
 def load_data() -> tuple[pd.DataFrame, pd.DataFrame]:
-    customers = pd.read_csv(ROOT / "data" / "customers.csv")
+    customers = pd.read_csv(
+        ROOT / "data" / "customers.csv",
+        parse_dates=["entry_date", "cancellation_date", "onboarding_date"],
+    )
     history = pd.read_csv(ROOT / "data" / "monthly_history.csv", parse_dates=["month"])
-    return add_health_fields(prepare_uploaded_customers(customers)), history
+    return add_health_fields(customers), history
 
 
 def money(value: float, language: str) -> str:
