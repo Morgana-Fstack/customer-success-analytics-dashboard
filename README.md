@@ -22,9 +22,6 @@ Customer Success teams often have customer, product usage, support and revenue d
 ## Dashboard features
 
 - Executive view of **MRR, ARR, NRR, GRR, logo churn and average health**
-- CS operations view with **onboarding completion, churn target and active/cancelled customers**
-- Onboarding impact comparison and churn breakdown by customer type, segment, plan or CSM
-- Entry-cohort churn analysis and operational attention list
 - Customer health segmentation: **Healthy, At risk and Critical**
 - MRR evolution and monthly revenue waterfall
 - Risk exposure by customer value and segment
@@ -32,24 +29,40 @@ Customer Success teams often have customer, product usage, support and revenue d
 - Filters by segment, plan and CSM owner
 - Searchable portfolio and CSV export
 - Documented health-score methodology
-- Backward-compatible CSV import with optional CS operations fields
+- CSV import aligned with the operational source schema
+- Backward compatibility for optional operational fields used in earlier project iterations
 
 ## CSV portfolio import
 
-Download the template directly from the dashboard. The original portfolio fields remain required, while the fields below enable the CS operations view:
+The downloadable CSV template mirrors the source portfolio exactly and contains **17 columns**:
 
 | Field | Meaning |
 |---|---|
-| `entry_date` | Customer entry date in `YYYY-MM-DD` format |
-| `cancellation_date` | Cancellation date; leave blank for active customers |
-| `customer_type` | Customer category, such as Individual, Agency or Partner |
-| `accounts` | Number of accounts associated with the customer |
-| `onboarding_completed` | `Yes`/`No` or `Sim`/`Não` |
-| `onboarding_date` | Onboarding completion date; leave blank when not completed |
+| `customer_id` | Unique customer identifier |
+| `customer_name` | Customer name |
+| `segment` | Customer segment, such as Agency or Partner/Affiliate |
+| `plan` | Contracted plan |
+| `csm` | Customer Success Manager responsible for the customer |
+| `status` | Customer status |
+| `starting_mrr` | MRR at the start of the analyzed period |
+| `mrr` | Current MRR |
+| `expansion_mrr` | Expansion revenue |
+| `contraction_mrr` | Contraction revenue |
+| `contracted_seats` | Contracted seats |
+| `monthly_active_users` | Monthly active users |
+| `feature_adoption_pct` | Feature adoption percentage |
+| `days_since_last_contact` | Days since the last customer contact |
+| `open_tickets` | Open support tickets |
+| `csat_score` | Customer satisfaction score |
+| `renewal_days` | Days until renewal |
 
-Legacy CSV files without these optional fields continue to load normally; only the CS operations tab stays unavailable.
+Accepted status values are normalized by the importer. Examples include `Active`, `Ativo` and `Mensal` for active customers, and `Churned`, `Cancelado`, `Desistencia`, `Desistência` and `Inativo` for churned customers.
 
-The demonstration portfolio contains **136 anonymized customers** and preserves the operational distribution of the reference CS analysis: 72 active customers, 64 cancellations, 163 accounts, and onboarding groups that make retention impact visible. Product usage, support and revenue values remain fully synthetic.
+Blank values in `expansion_mrr` and `contraction_mrr` are interpreted as zero. The remaining numeric fields are validated before the portfolio is loaded.
+
+Earlier project versions supported additional fields such as onboarding dates, customer type and account counts. These fields remain accepted when present for backward compatibility, but **they are not part of the official source schema and are not required by the downloadable template**.
+
+The demonstration portfolio contains anonymized customers and synthetic product, support and revenue values for portfolio presentation purposes.
 
 ## Health score
 
@@ -119,7 +132,8 @@ python generate_data.py
 ├── data/                     # Synthetic portfolio and history
 ├── generate_data.py          # Reproducible demo-data generator
 ├── src/data_loader.py        # CSV validation and normalization
-├── src/metrics.py            # Health score, operational KPIs and filters
+├── src/metrics.py            # Health score, portfolio KPIs and filters
+├── src/operations.py         # Additional CS operations metrics
 ├── tests/                    # Data-validation and business-logic tests
 └── .github/workflows/ci.yml  # Automated quality checks
 ```
@@ -130,19 +144,35 @@ python generate_data.py
 
 Dashboard interativo que transforma dados de uma carteira de Customer Success em decisões de retenção e receita. O projeto reúne indicadores executivos, health score explicável, análise da movimentação de receita e uma fila priorizada de clientes.
 
-Ele responde perguntas como:
+### Estrutura da base
 
-- Quais clientes precisam de atenção imediata?
-- Quanto de receita está exposto a risco?
-- Quais renovações estão próximas e com baixa saúde?
-- Expansão e retenção estão compensando o churn?
-- Onde o time de CS deve concentrar seus esforços?
-- Qual é o impacto da conclusão do onboarding no churn?
-- Quais safras e tipos de cliente apresentam maior cancelamento?
+O CSV oficial utilizado para importação possui **17 variáveis**:
 
-A aba **Operação de CS** acompanha clientes ativos e cancelados, total de contas, meta de churn, conclusão do onboarding, comparação com e sem onboarding, churn por safra e uma lista de clientes que exigem atenção. O modelo de CSV disponível no próprio dashboard já inclui os novos campos operacionais.
+- `customer_id` — identificador único do cliente
+- `customer_name` — nome do cliente
+- `segment` — segmento, como Agência ou Parceiro/Afiliado
+- `plan` — plano contratado
+- `csm` — Customer Success Manager responsável
+- `status` — situação do cliente
+- `starting_mrr` — MRR no início
+- `mrr` — MRR atual
+- `expansion_mrr` — receita de expansão
+- `contraction_mrr` — receita de contração
+- `contracted_seats` — assentos contratados
+- `monthly_active_users` — usuários ativos no mês
+- `feature_adoption_pct` — percentual de adoção de features
+- `days_since_last_contact` — dias desde o último contato
+- `open_tickets` — tickets abertos
+- `csat_score` — nota de satisfação do cliente
+- `renewal_days` — dias até a renovação
 
-A carteira demonstrativa possui **136 clientes anonimizados**, 72 ativos, 64 cancelados e 163 contas. As distribuições operacionais preservam a lógica da análise de referência, enquanto nomes, receita, uso de produto e suporte são fictícios. O projeto pode ser executado localmente com os comandos apresentados acima.
+O importador normaliza os status operacionais usados na base. `Ativo` e `Mensal`, por exemplo, são tratados como clientes ativos; `Cancelado`, `Desistencia`, `Desistência` e `Inativo` são tratados como churn.
+
+Valores vazios de expansão e contração são convertidos para zero. Os demais campos numéricos são validados antes da carga.
+
+Campos de onboarding, data de entrada, quantidade de contas e tipo de cliente que apareceram em versões anteriores do projeto continuam aceitos por compatibilidade, mas **não fazem parte da fonte oficial e não são exigidos no modelo CSV**.
+
+A partir dessas 17 variáveis, o dashboard calcula health score, exposição de receita em risco, churn, retenção, uso do produto, relacionamento, suporte e prioridades de atuação do time de CS.
 
 ## Author
 
