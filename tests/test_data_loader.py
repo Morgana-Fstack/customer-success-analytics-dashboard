@@ -48,6 +48,17 @@ def test_invalid_numeric_value_is_rejected() -> None:
         prepare_uploaded_customers(data)
 
 
+def test_empty_revenue_movements_default_to_zero() -> None:
+    data = customer_template()
+    data["expansion_mrr"] = None
+    data["contraction_mrr"] = "  "
+
+    result = prepare_uploaded_customers(data)
+
+    assert result.iloc[0]["expansion_mrr"] == 0
+    assert result.iloc[0]["contraction_mrr"] == 0
+
+
 def test_duplicate_customer_id_is_rejected() -> None:
     data = pd.concat([customer_template(), customer_template()], ignore_index=True)
     with pytest.raises(CustomerDataError, match="duplicate_ids"):

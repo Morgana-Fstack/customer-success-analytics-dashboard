@@ -45,6 +45,8 @@ NUMERIC_CUSTOMER_COLUMNS = [
     "renewal_days",
 ]
 
+ZERO_DEFAULT_NUMERIC_COLUMNS = ["expansion_mrr", "contraction_mrr"]
+
 STATUS_ALIASES = {
     "active": "Active",
     "ativo": "Active",
@@ -144,6 +146,10 @@ def prepare_uploaded_customers(data: pd.DataFrame) -> pd.DataFrame:
         invalid = sorted(result.loc[normalized_status.isna(), "status"].unique())
         raise CustomerDataError("invalid_status", ", ".join(invalid))
     result["status"] = normalized_status
+
+    for column in ZERO_DEFAULT_NUMERIC_COLUMNS:
+        empty_movement = result[column].isna() | result[column].astype(str).str.strip().eq("")
+        result.loc[empty_movement, column] = 0
 
     for column in NUMERIC_CUSTOMER_COLUMNS:
         converted = pd.to_numeric(result[column], errors="coerce")
