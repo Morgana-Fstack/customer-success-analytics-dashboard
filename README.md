@@ -5,6 +5,12 @@
 [![Tests](https://img.shields.io/github/actions/workflow/status/Morgana-Fstack/customer-success-analytics-dashboard/ci.yml?label=tests)](https://github.com/Morgana-Fstack/customer-success-analytics-dashboard/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
+## Live app
+
+**[Open the Customer Success Analytics Dashboard](https://customer-success-analytics-dashboard.streamlit.app/)**
+
+**Aplicação online:** [customer-success-analytics-dashboard.streamlit.app](https://customer-success-analytics-dashboard.streamlit.app/)
+
 An interactive dashboard that turns Customer Success portfolio data into clear retention and revenue decisions. It combines executive KPIs, a transparent customer health score, revenue movement analysis and a prioritized action queue.
 
 > Portfolio project built with anonymized operational distributions and synthetic product and revenue data. No real customer names or identifying information are used.
