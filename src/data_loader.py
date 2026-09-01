@@ -108,7 +108,11 @@ def prepare_uploaded_customers(data: pd.DataFrame) -> pd.DataFrame:
         result.loc[empty, column] = 0
 
     for column in NUMERIC_CUSTOMER_COLUMNS:
-        converted = _normalize_renewal_days(result[column]) if column == "renewal_days" else pd.to_numeric(result[column], errors="coerce")
+        converted = (
+            _normalize_renewal_days(result[column])
+            if column == "renewal_days"
+            else pd.to_numeric(result[column], errors="coerce")
+        )
         if column in REQUIRED_NUMERIC_VALUES and converted.isna().any():
             raise CustomerDataError("invalid_numeric", column)
         result[column] = converted
