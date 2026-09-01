@@ -9,7 +9,7 @@
 [![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-dashboard-FF4B4B?logo=streamlit&logoColor=white)](https://streamlit.io/)
 [![Tests](https://img.shields.io/github/actions/workflow/status/Morgana-Fstack/customer-success-analytics-dashboard/ci.yml?label=tests)](https://github.com/Morgana-Fstack/customer-success-analytics-dashboard/actions)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red.svg)](LICENSE)
 
 ## Live app
 
@@ -186,10 +186,11 @@ Campos de onboarding, data de entrada, quantidade de contas e tipo de cliente qu
 
 A partir dessas 17 variáveis, o dashboard calcula health score, exposição de receita em risco, churn, retenção, uso do produto, relacionamento, suporte e prioridades de atuação do time de CS.
 
-## Author
+## Author / Autora
 
-**Morgana Petterle** — Customer Success professional building solutions at the intersection of customer experience, analytics and technology.
+**Morgana Petterle da Cunha** — Customer Success professional building solutions at the intersection of customer experience, analytics and technology.  
+[LinkedIn](https://linkedin.com/in/morgana-petterle) · [GitHub](https://github.com/Morgana-Fstack)
 
-## License
+## License / Licença
 
-Licensed under the [MIT License](LICENSE).
+Copyright © 2026 Morgana Petterle da Cunha. All rights reserved. This project is publicly visible only for portfolio, demonstration and professional evaluation. See the [proprietary license](LICENSE).
