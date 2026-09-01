@@ -1,5 +1,11 @@
 # Customer Success Analytics Dashboard
 
+> **Autoria e direitos:** projeto criado por **Morgana Petterle da Cunha**.  
+> Copyright © 2026. Todos os direitos reservados. O código está disponível
+> somente para portfólio, demonstração e avaliação profissional. Consulte a
+> [licença proprietária](LICENSE).
+
+
 [![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-dashboard-FF4B4B?logo=streamlit&logoColor=white)](https://streamlit.io/)
 [![Tests](https://img.shields.io/github/actions/workflow/status/Morgana-Fstack/customer-success-analytics-dashboard/ci.yml?label=tests)](https://github.com/Morgana-Fstack/customer-success-analytics-dashboard/actions)
